@@ -1,0 +1,306 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Amanah Fiducie — Design System
+ * Brand: Vert islamique profond + Or noble + Crème ivoire
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-cream: var(--cream);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", "Helvetica Neue", system-ui, sans-serif;
+  --font-arabic: "Amiri", "Scheherazade New", serif;
+
+  --shadow-elegant: 0 20px 50px -20px color-mix(in oklab, var(--primary) 35%, transparent);
+  --shadow-gold: 0 10px 30px -12px color-mix(in oklab, var(--gold) 40%, transparent);
+  --shadow-card: 0 8px 24px -12px oklch(0.2 0.04 150 / 0.15);
+
+  --gradient-hero: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--primary) 92%, black) 0%,
+    var(--primary) 60%,
+    color-mix(in oklab, var(--primary) 80%, var(--gold) 10%) 100%
+  );
+  --gradient-gold: linear-gradient(135deg, oklch(0.78 0.13 80), oklch(0.68 0.15 65));
+  --gradient-overlay: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--primary) 70%, transparent) 0%,
+    color-mix(in oklab, var(--primary) 90%, black 10%) 100%
+  );
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Crème ivoire */
+  --background: oklch(0.985 0.012 90);
+  --foreground: oklch(0.18 0.04 150);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.04 150);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.04 150);
+
+  /* Vert islamique profond */
+  --primary: oklch(0.36 0.09 155);
+  --primary-foreground: oklch(0.985 0.012 90);
+  --primary-glow: oklch(0.46 0.11 155);
+
+  --secondary: oklch(0.94 0.02 90);
+  --secondary-foreground: oklch(0.22 0.05 150);
+
+  --muted: oklch(0.94 0.018 95);
+  --muted-foreground: oklch(0.45 0.03 130);
+
+  --accent: oklch(0.93 0.04 85);
+  --accent-foreground: oklch(0.22 0.05 150);
+
+  /* Or noble */
+  --gold: oklch(0.72 0.13 75);
+  --gold-foreground: oklch(0.18 0.04 150);
+
+  --cream: oklch(0.965 0.018 88);
+
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  --border: oklch(0.88 0.02 90);
+  --input: oklch(0.9 0.02 90);
+  --ring: oklch(0.36 0.09 155);
+}
+
+.dark {
+  --background: oklch(0.16 0.03 150);
+  --foreground: oklch(0.96 0.01 90);
+  --card: oklch(0.22 0.04 150);
+  --card-foreground: oklch(0.96 0.01 90);
+  --popover: oklch(0.22 0.04 150);
+  --popover-foreground: oklch(0.96 0.01 90);
+  --primary: oklch(0.55 0.12 155);
+  --primary-foreground: oklch(0.99 0.005 90);
+  --primary-glow: oklch(0.65 0.13 155);
+  --secondary: oklch(0.26 0.04 150);
+  --secondary-foreground: oklch(0.96 0.01 90);
+  --muted: oklch(0.26 0.04 150);
+  --muted-foreground: oklch(0.7 0.02 100);
+  --accent: oklch(0.3 0.05 150);
+  --accent-foreground: oklch(0.96 0.01 90);
+  --gold: oklch(0.78 0.14 78);
+  --gold-foreground: oklch(0.16 0.03 150);
+  --cream: oklch(0.22 0.04 150);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.55 0.12 155);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role="button"]:focus-visible,
+  [tabindex]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 28%, transparent);
+    border-radius: 0.5rem;
+  }
+
+  /* Decorative gold rule */
+  .gold-rule {
+    display: inline-block;
+    width: 60px;
+    height: 2px;
+    background: var(--gradient-gold);
+    margin-bottom: 1rem;
+  }
+
+  /* Subtle paper grain */
+  .paper-grain {
+    background-image: radial-gradient(
+      oklch(0.18 0.04 150 / 0.04) 1px,
+      transparent 1px
+    );
+    background-size: 24px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer utilities {
+  @keyframes serviceCardEnter {
+    0% {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes sloganCubeRoll {
+    0% {
+      opacity: 0;
+      transform: perspective(700px) translateY(28px) rotateX(-85deg) scale(0.98);
+    }
+    18% {
+      opacity: 1;
+      transform: perspective(700px) translateY(0) rotateX(0deg) scale(1);
+    }
+    82% {
+      opacity: 1;
+      transform: perspective(700px) translateY(0) rotateX(0deg) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: perspective(700px) translateY(-28px) rotateX(85deg) scale(0.98);
+    }
+  }
+
+  @keyframes sloganShift {
+    0% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 0 0.2rem color-mix(in oklab, var(--gold) 25%, transparent));
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: drop-shadow(0 0 0.55rem color-mix(in oklab, var(--gold) 50%, transparent));
+    }
+    100% {
+      background-position: 0% 50%;
+      filter: drop-shadow(0 0 0.2rem color-mix(in oklab, var(--gold) 25%, transparent));
+    }
+  }
+
+  .hero-slogan {
+    background-image: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--gold) 92%, white) 0%,
+      color-mix(in oklab, var(--primary-foreground) 92%, var(--gold) 8%) 45%,
+      color-mix(in oklab, var(--gold) 88%, white) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: sloganShift 3.4s ease-in-out infinite;
+  }
+
+  .slogan-cube-word {
+    transform-origin: center center;
+    animation: sloganCubeRoll 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    will-change: transform, opacity;
+  }
+
+  .service-card-enter {
+    animation: serviceCardEnter 520ms ease-out both;
+  }
+
+  @keyframes spotlightActive {
+    0%,
+    25%,
+    100% {
+      flex-grow: 1;
+      filter: brightness(0.6) saturate(0.85);
+    }
+    8%,
+    17% {
+      flex-grow: 2.5;
+      filter: brightness(1.2) saturate(1.2);
+    }
+  }
+
+  .spotlight-active {
+    animation: spotlightActive 6s ease-in-out infinite;
+    will-change: flex-grow, filter;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  .bg-hero-gradient {
+    background-image: var(--gradient-hero);
+  }
+  .bg-gold-gradient {
+    background-image: var(--gradient-gold);
+  }
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+  .shadow-gold {
+    box-shadow: var(--shadow-gold);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+}
