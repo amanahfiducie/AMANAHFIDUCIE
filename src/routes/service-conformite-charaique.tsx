@@ -1,10 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, BookOpenCheck, ShieldCheck, Route as RouteLine } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { SiteLayout } from "@/components/site/SiteLayout";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { Button } from "@/components/ui/button";
 import heroOffice from "@/assets/hero-office.jpg";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { SiteLayout } from "@/components/site/SiteLayout";
+import { Button } from "@/components/ui/button";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
+import { ArrowRight, BookOpenCheck, Route as RouteLine, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/service-conformite-charaique")({
   head: () => ({

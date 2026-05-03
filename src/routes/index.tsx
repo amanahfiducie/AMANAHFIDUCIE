@@ -1,34 +1,34 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import {
-  ShieldCheck,
-  ArrowRight,
-  Lock,
-  ClipboardList,
-  FileBarChart,
-  ScrollText,
-  BookOpenCheck,
-  ClipboardCheck,
-  Landmark,
-  FileSignature,
-  Gift,
-  UsersRound,
-  HeartHandshake,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { SiteLayout } from "@/components/site/SiteLayout";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { Button } from "@/components/ui/button";
-import heroImg from "@/assets/hero-office.jpg";
-import seal from "@/assets/logo-seal.png";
-import heritageMineurs from "@/assets/heritage-mineurs.png";
-import servicesJustice from "@/assets/services-justice.jpg";
-import ctaElevage from "@/assets/cta-elevage.png";
 import ctaAgriculture from "@/assets/cta-agriculture.png";
+import ctaAide from "@/assets/cta-aide.png";
+import ctaElevage from "@/assets/cta-elevage.png";
+import ctaEntreprise from "@/assets/cta-entreprise.png";
 import ctaImmeuble from "@/assets/cta-immeuble.png";
 import ctaOr from "@/assets/cta-or.png";
-import ctaEntreprise from "@/assets/cta-entreprise.png";
-import ctaAide from "@/assets/cta-aide.png";
+import heritageMineurs from "@/assets/heritage-mineurs.png";
+import heroImg from "@/assets/hero-office.jpg";
+import seal from "@/assets/logo-seal.png";
+import servicesJustice from "@/assets/services-justice.jpg";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { SiteLayout } from "@/components/site/SiteLayout";
+import { Button } from "@/components/ui/button";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpenCheck,
+  ClipboardCheck,
+  ClipboardList,
+  FileBarChart,
+  FileSignature,
+  Gift,
+  HeartHandshake,
+  Landmark,
+  Lock,
+  ScrollText,
+  ShieldCheck,
+  UsersRound,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({

@@ -33,3 +33,6 @@ dist-ssr
 
 # Cursor / local workspace artifacts
 .workspace/
+
+# Vercel build output (local)
+.vercel/

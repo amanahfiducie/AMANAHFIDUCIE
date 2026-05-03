@@ -6,4 +6,16 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-export default defineConfig();
+/** Sur Vercel : Nitro (preset vercel) ; en local : bundle Cloudflare (dist/) inchangé. */
+export default defineConfig(async () => {
+  const onVercel = process.env.VERCEL === "1";
+  const plugins = [];
+  if (onVercel) {
+    const { nitro } = await import("nitro/vite");
+    plugins.push(nitro({ preset: "vercel" }));
+  }
+  return {
+    cloudflare: onVercel ? false : undefined,
+    plugins,
+  };
+});

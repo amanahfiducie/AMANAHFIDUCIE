@@ -1,10 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Coins, Scale, ScrollText } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { SiteLayout } from "@/components/site/SiteLayout";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { Button } from "@/components/ui/button";
 import zakatHero from "@/assets/zakat-grains-mains.png";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { SiteLayout } from "@/components/site/SiteLayout";
+import { Button } from "@/components/ui/button";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
+import { ArrowRight, Coins, Scale, ScrollText } from "lucide-react";
 
 export const Route = createFileRoute("/service-zakat-faraid")({
   head: () => ({

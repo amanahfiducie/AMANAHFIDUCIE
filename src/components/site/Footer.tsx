@@ -1,15 +1,15 @@
+import logo from "@/assets/logo-icon.png";
 import { Link } from "@tanstack/react-router";
 import {
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  ArrowUp,
-  ScrollText,
-  BookOpenCheck,
-  ClipboardCheck,
+    ArrowUp,
+    BookOpenCheck,
+    ClipboardCheck,
+    Clock,
+    Mail,
+    MapPin,
+    Phone,
+    ScrollText,
 } from "lucide-react";
-import logo from "@/assets/logo-icon.png";
 
 const navLinks = [
   { to: "/", label: "Accueil" },
@@ -26,6 +26,7 @@ const serviceLinks = [
   { to: "/service-waqf-familial", label: "Waqf familial" },
   { to: "/service-zakat-faraid", label: "Zakat et farāʾiḍ" },
   { to: "/service-conformite-charaique", label: "Conformité charaïque" },
+  { to: "/comite-charaique", label: "Comité charaïque" },
   { to: "/service-reporting", label: "Reporting fiduciaire" },
 ] as const;
 

@@ -20,6 +20,7 @@ import { Route as ServiceConformiteCharaiqueRouteImport } from './routes/service
 import { Route as ServiceCantonnementActifsRouteImport } from './routes/service-cantonnement-actifs'
 import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ComiteCharaiqueRouteImport } from './routes/comite-charaique'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -82,6 +83,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComiteCharaiqueRoute = ComiteCharaiqueRouteImport.update({
+  id: '/comite-charaique',
+  path: '/comite-charaique',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AProposRoute = AProposRouteImport.update({
   id: '/a-propos',
   path: '/a-propos',
@@ -96,6 +102,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/comite-charaique': typeof ComiteCharaiqueRoute
   '/contact': typeof ContactRoute
   '/impact': typeof ImpactRoute
   '/service-cantonnement-actifs': typeof ServiceCantonnementActifsRoute
@@ -111,6 +118,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/comite-charaique': typeof ComiteCharaiqueRoute
   '/contact': typeof ContactRoute
   '/impact': typeof ImpactRoute
   '/service-cantonnement-actifs': typeof ServiceCantonnementActifsRoute
@@ -127,6 +135,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/comite-charaique': typeof ComiteCharaiqueRoute
   '/contact': typeof ContactRoute
   '/impact': typeof ImpactRoute
   '/service-cantonnement-actifs': typeof ServiceCantonnementActifsRoute
@@ -144,6 +153,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/a-propos'
+    | '/comite-charaique'
     | '/contact'
     | '/impact'
     | '/service-cantonnement-actifs'
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/a-propos'
+    | '/comite-charaique'
     | '/contact'
     | '/impact'
     | '/service-cantonnement-actifs'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/a-propos'
+    | '/comite-charaique'
     | '/contact'
     | '/impact'
     | '/service-cantonnement-actifs'
@@ -190,6 +202,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AProposRoute: typeof AProposRoute
+  ComiteCharaiqueRoute: typeof ComiteCharaiqueRoute
   ContactRoute: typeof ContactRoute
   ImpactRoute: typeof ImpactRoute
   ServiceCantonnementActifsRoute: typeof ServiceCantonnementActifsRoute
@@ -282,6 +295,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/comite-charaique': {
+      id: '/comite-charaique'
+      path: '/comite-charaique'
+      fullPath: '/comite-charaique'
+      preLoaderRoute: typeof ComiteCharaiqueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/a-propos': {
       id: '/a-propos'
       path: '/a-propos'
@@ -302,6 +322,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AProposRoute: AProposRoute,
+  ComiteCharaiqueRoute: ComiteCharaiqueRoute,
   ContactRoute: ContactRoute,
   ImpactRoute: ImpactRoute,
   ServiceCantonnementActifsRoute: ServiceCantonnementActifsRoute,
