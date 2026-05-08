@@ -1,5 +1,6 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Menu, X, Phone, Mail, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,12 @@ const navItems = [
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [menuPortalReady, setMenuPortalReady] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setMenuPortalReady(true);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -41,10 +48,14 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
   return (
     <header
       className={cn(
-        "fixed top-0 inset-x-0 z-50 transition-all duration-500",
+        "fixed top-0 inset-x-0 z-50 max-lg:z-[200] transition-all duration-500",
         scrolled
           ? "bg-background/85 backdrop-blur-xl shadow-card border-b border-border/60"
           : "bg-transparent",
@@ -75,14 +86,14 @@ export function Header() {
               <span>+221 33 800 00 00</span>
             </a>
             <a
-              href="mailto:contact@amanahfiducie.sn"
+              href="mailto:amanahfiducie@gmail.com"
               className={cn(
                 "flex items-center gap-1.5 transition-colors",
                 scrolled ? "hover:text-primary" : "hover:text-gold",
               )}
             >
               <Mail className="size-3" />
-              <span>contact@amanahfiducie.sn</span>
+              <span>amanahfiducie@gmail.com</span>
             </a>
           </div>
           <div className="uppercase tracking-[0.25em] text-gold/90">
@@ -124,14 +135,16 @@ export function Header() {
             <div
               className={cn(
                 "font-display font-semibold tracking-wide transition-all duration-500",
-                scrolled ? "text-base text-primary" : "text-lg text-primary-foreground",
+                scrolled
+                  ? "text-sm sm:text-base text-primary"
+                  : "text-base sm:text-lg text-primary-foreground",
               )}
             >
               AMANAH FIDUCIE
             </div>
             <div
               className={cn(
-                "text-[10px] uppercase tracking-[0.22em] transition-colors",
+                "text-[9px] sm:text-[10px] uppercase tracking-[0.18em] sm:tracking-[0.22em] transition-colors",
                 scrolled ? "text-muted-foreground" : "text-gold/90",
               )}
             >
@@ -186,10 +199,10 @@ export function Header() {
 
         <button
           className={cn(
-            "lg:hidden p-2 rounded-md transition-colors",
+            "lg:hidden inline-flex size-11 items-center justify-center rounded-xl border transition-all",
             scrolled
-              ? "text-foreground hover:bg-accent"
-              : "text-primary-foreground hover:bg-primary-foreground/10",
+              ? "text-foreground border-border/70 bg-background/85 hover:bg-accent"
+              : "text-primary-foreground border-primary-foreground/25 bg-primary/35 backdrop-blur hover:bg-primary-foreground/10",
           )}
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
@@ -201,55 +214,114 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile menu — full overlay */}
-      <div
-        id="mobile-main-nav"
-        aria-hidden={!open}
-        className={cn(
-          "lg:hidden fixed inset-x-0 top-16 bottom-0 bg-background/98 backdrop-blur-xl transition-all duration-300 origin-top",
-          open
-            ? "opacity-100 scale-y-100 pointer-events-auto"
-            : "opacity-0 scale-y-95 pointer-events-none",
-        )}
-      >
-        <nav aria-label="Navigation mobile" className="px-5 py-6 flex flex-col gap-1 max-w-md mx-auto">
-          {navItems.map((item, idx) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              activeOptions={{ exact: item.to === "/" }}
-              onClick={() => setOpen(false)}
-              style={{ transitionDelay: open ? `${idx * 40}ms` : "0ms" }}
+      {menuPortalReady
+        ? createPortal(
+            <div
+              id="mobile-main-nav"
+              aria-hidden={!open}
               className={cn(
-                "group flex items-center justify-between px-4 py-4 rounded-lg text-base font-medium text-foreground border border-transparent hover:border-border hover:bg-accent transition-all",
-                open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0",
+                "lg:hidden fixed inset-0 z-[10000] min-h-dvh w-full",
+                open ? "visible" : "invisible pointer-events-none",
               )}
-              activeProps={{
-                className: "text-primary-foreground bg-primary border-primary/40",
-              }}
             >
-              <span>{item.label}</span>
-              <ChevronRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
-            </Link>
-          ))}
-          <Button asChild variant="hero" size="lg" className="mt-4 w-full rounded-full">
-            <Link to="/contact" onClick={() => setOpen(false)}>
-              Prendre rendez-vous
-            </Link>
-          </Button>
+              <div
+                className={cn(
+                  "absolute inset-0 bg-black/45 backdrop-blur-[2px] transition-opacity duration-200",
+                  open ? "opacity-100" : "opacity-0",
+                )}
+                onClick={() => setOpen(false)}
+                aria-hidden
+              />
+              <nav
+                aria-label="Navigation mobile"
+                className={cn(
+                  "mobile-nav-drawer-bg absolute top-0 right-0 h-full w-[min(100%,20rem)] max-w-[88vw] shadow-[0_0_40px_-8px_rgba(0,0,0,0.35)] flex flex-col overflow-y-auto overscroll-contain border-l border-white/10 transition-transform duration-200 ease-out motion-reduce:transition-none pt-[env(safe-area-inset-top,0px)] pb-[env(safe-area-inset-bottom,0px)]",
+                  open ? "translate-x-0" : "translate-x-full",
+                )}
+              >
+                <div className="relative shrink-0 pt-6 pb-2 px-5 border-b border-white/10">
+                  <button
+                    type="button"
+                    className="absolute right-3 top-3 inline-flex size-10 items-center justify-center rounded-full border border-white/25 text-white hover:bg-white/10 transition-colors"
+                    onClick={() => setOpen(false)}
+                    aria-label="Fermer le menu"
+                  >
+                    <X className="size-5" />
+                  </button>
+                  <div className="flex flex-col items-center gap-2 pr-8">
+                    <div
+                      className="relative flex size-[3.25rem] shrink-0 items-center justify-center rounded-full border-2 border-gold/70 bg-black/15 shadow-[0_0_0_1px_rgba(255,255,255,0.08),inset_0_0_12px_rgba(0,0,0,0.2)]"
+                      aria-hidden
+                    >
+                      <img
+                        src={logo}
+                        alt=""
+                        className="size-9 object-contain rounded-full"
+                        width={36}
+                        height={36}
+                      />
+                    </div>
+                    <p className="font-display text-[11px] uppercase tracking-[0.28em] text-white/90 text-center font-semibold">
+                      Amanah Fiducie
+                    </p>
+                  </div>
+                </div>
 
-          <div className="mt-8 pt-6 border-t border-border space-y-3 text-sm text-muted-foreground">
-            <a href="tel:+221338000000" className="flex items-center gap-3 hover:text-primary transition-colors">
-              <Phone className="size-4 text-gold" />
-              +221 33 800 00 00
-            </a>
-            <a href="mailto:contact@amanahfiducie.sn" className="flex items-center gap-3 hover:text-primary transition-colors">
-              <Mail className="size-4 text-gold" />
-              contact@amanahfiducie.sn
-            </a>
-          </div>
-        </nav>
-      </div>
+                <div className="flex-1 px-4 py-5 space-y-1.5">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      activeOptions={{ exact: item.to === "/" }}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "flex items-center justify-between gap-3 px-3.5 py-3.5 rounded-xl text-sm sm:text-[15px] font-semibold tracking-wide text-white border border-transparent",
+                        "hover:bg-white/10 hover:border-white/15 focus-visible:ring-2 focus-visible:ring-gold/80 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
+                      )}
+                      activeProps={{
+                        className:
+                          "text-white bg-white/15 border-gold/50 shadow-[inset_0_0_0_1px_rgba(212,175,55,0.35)]",
+                      }}
+                    >
+                      <span className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]">{item.label}</span>
+                      <ChevronRight className="size-4 shrink-0 text-gold/85" />
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="shrink-0 border-t border-white/10 p-4 space-y-3 bg-black/15">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="w-full rounded-xl border-0 bg-gold text-primary-foreground font-semibold shadow-gold hover:bg-gold/90"
+                  >
+                    <Link to="/contact" onClick={() => setOpen(false)}>
+                      Prendre rendez-vous
+                      <ChevronRight className="size-4" />
+                    </Link>
+                  </Button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <a
+                      href="tel:+221338000000"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-white/5 px-2 py-2.5 text-xs font-semibold text-white hover:bg-white/10 transition-colors"
+                    >
+                      <Phone className="size-3.5 text-gold" />
+                      Appeler
+                    </a>
+                    <a
+                      href="mailto:amanahfiducie@gmail.com"
+                      className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-white/5 px-2 py-2.5 text-xs font-semibold text-white hover:bg-white/10 transition-colors"
+                    >
+                      <Mail className="size-3.5 text-gold" />
+                      E-mail
+                    </a>
+                  </div>
+                </div>
+              </nav>
+            </div>,
+            document.body,
+          )
+        : null}
     </header>
   );
 }

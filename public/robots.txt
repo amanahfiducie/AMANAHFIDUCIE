@@ -1,0 +1,3 @@
+# Ajustez l’URL canonique du sitemap après mise en ligne.
+User-agent: *
+Allow: /

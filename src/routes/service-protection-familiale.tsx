@@ -13,7 +13,7 @@ export const Route = createFileRoute("/service-protection-familiale")({
       {
         name: "description",
         content:
-          "Protection familiale et accompagnement patrimonial pour securiser les interets des heritiers mineurs.",
+          "Protection familiale et accompagnement patrimonial pour securiser les interets des heritiers mineurs et valoriser les biens sur le long terme.",
       },
     ],
   }),
@@ -23,11 +23,11 @@ export const Route = createFileRoute("/service-protection-familiale")({
 const bullets: { icon: LucideIcon; text: string }[] = [
   {
     icon: Shield,
-    text: "Protection des actifs contre les risques de dilution et de conflit.",
+    text: "Protection des actifs contre les risques de dilution, de conflit et de devalorisation.",
   },
   {
     icon: HeartHandshake,
-    text: "Gestion orientee vers les besoins reels des beneficiaires.",
+    text: "Gestion orientee vers les besoins reels des beneficiaires et la valorisation prudente des biens.",
   },
   {
     icon: UsersRound,
@@ -51,7 +51,7 @@ function ServiceProtectionFamilialePage() {
           <SectionHeading
             eyebrow="Service"
             title="Protection familiale"
-            description="Une organisation de confiance pour proteger l'interet des mineurs et soutenir les familles."
+            description="Une organisation de confiance pour proteger l'interet des mineurs, soutenir les familles et maintenir la valeur du patrimoine."
             invert
           />
         </div>

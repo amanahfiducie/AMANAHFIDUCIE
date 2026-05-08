@@ -15,8 +15,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
-  BookOpenCheck,
-  ClipboardCheck,
   ClipboardList,
   FileBarChart,
   FileSignature,
@@ -24,7 +22,6 @@ import {
   HeartHandshake,
   Landmark,
   Lock,
-  ScrollText,
   ShieldCheck,
   UsersRound,
 } from "lucide-react";
@@ -37,20 +34,17 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "AMANAH FIDUCIE SARL (SOFIGEPAM) : Société Fiduciaire Islamique de Gestion du Patrimoine des Mineurs — mandats, AUM et gouvernance conformes au business plan.",
+          "AMANAH FIDUCIE SARL (SOFIGEPAM) : Société Fiduciaire Islamique de Gestion du Patrimoine des Mineurs — mandats, AUM, gouvernance et valorisation durable des biens selon le business plan.",
       },
       { property: "og:title", content: "Amanah Fiducie — Société Fiduciaire Islamique" },
-      { property: "og:description", content: "Protéger le patrimoine des générations futures." },
+      {
+        property: "og:description",
+        content: "Protéger, valoriser et transmettre le patrimoine des générations futures.",
+      },
     ],
   }),
   component: HomePage,
 });
-
-const trust = [
-  { icon: ScrollText, label: "Tutelle & mandat — Code civil & COCC (BP §4)" },
-  { icon: BookOpenCheck, label: "Comité charaïque indépendant (3 à 5 membres, AAOIFI)" },
-  { icon: ClipboardCheck, label: "Audits financier et charaïque annuels" },
-];
 
 const stats: {
   value: string;
@@ -135,23 +129,23 @@ function HomePage() {
           <div className="lg:col-span-8 text-primary-foreground">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 backdrop-blur-sm mb-6">
               <span className="size-1.5 rounded-full bg-gold animate-pulse" />
-              <span className="text-xs uppercase tracking-[0.22em] text-primary-foreground/90">
-                SOFIGEPAM — gestion du patrimoine des mineurs
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.18em] sm:tracking-[0.22em] text-primary-foreground/90">
+                Amanah Fiducie SARL
               </span>
             </div>
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold leading-[1.05] text-balance">
+            <h1 className="font-display text-[2.125rem] leading-[1.08] sm:text-5xl md:text-6xl lg:text-7xl font-semibold sm:leading-[1.05] text-balance">
               La fiducie islamique
               <span className="block text-gold italic font-normal mt-2">
                 au service des héritiers mineurs
               </span>
             </h1>
-            <p className="mt-7 max-w-2xl text-lg text-primary-foreground/85 leading-relaxed">
+            <p className="mt-6 sm:mt-7 max-w-2xl text-base sm:text-lg text-primary-foreground/85 leading-relaxed">
               AMANAH FIDUCIE SARL, à travers SOFIGEPAM, protège et valorise le patrimoine des
-              mineurs héritiers grâce à une gestion fiduciaire islamique professionnelle,
-              transparente et responsable.
+              mineurs héritiers grâce à une gestion fiduciaire islamique professionnelle, orientée
+              performance responsable, transparente et durable.
             </p>
             <div className="mt-6 max-w-3xl">
-              <p className="text-xl sm:text-3xl font-semibold min-h-10 tracking-tight">
+              <p className="text-lg sm:text-2xl md:text-3xl font-semibold min-h-9 sm:min-h-10 tracking-tight">
                 <span key={phraseIndex} className="hero-slogan slogan-cube-word inline-block">
                   {activeSlogan}
                 </span>
@@ -180,17 +174,6 @@ function HomePage() {
           </div>
         </div>
 
-        {/* Trust strip */}
-        <div className="absolute bottom-0 inset-x-0 bg-primary/95 backdrop-blur border-t border-primary-foreground/10">
-          <div className="mx-auto max-w-7xl px-5 lg:px-8 py-4 flex flex-wrap justify-center gap-x-10 gap-y-3">
-            {trust.map((t) => (
-              <div key={t.label} className="flex items-center gap-2 text-primary-foreground/90 text-sm">
-                <t.icon className="size-4 text-gold shrink-0" aria-hidden />
-                <span>{t.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* MISSION */}
@@ -207,17 +190,17 @@ function HomePage() {
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
           {/* TEXT */}
           <div className="lg:col-span-6">
-            <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 ring-1 ring-gold/35 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-primary mb-5">
+            <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 ring-1 ring-gold/35 px-3 py-1 text-[10px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.22em] text-primary mb-5">
               <ShieldCheck className="size-3.5 text-gold" />
               Notre mission
             </span>
-            <h2 className="font-display text-4xl lg:text-5xl font-semibold leading-tight text-foreground text-balance">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.12] sm:leading-tight text-foreground text-balance">
               Sécuriser l'héritage des{" "}
               <span className="text-gold italic font-normal">mineurs</span>
             </h2>
-            <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-xl">
-              Une approche professionnelle, conforme à la Charia et orientée résultat —
-              au service des familles, des juges et des notaires.
+            <p className="mt-4 sm:mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
+              Une approche professionnelle, conforme à la Charia et orientée résultats concrets :
+              sécuriser les biens, générer des revenus licites et transmettre un patrimoine valorisé.
             </p>
 
             <ul className="mt-8 space-y-4">
@@ -230,7 +213,12 @@ function HomePage() {
                 {
                   icon: ClipboardList,
                   title: "Administrer",
-                  desc: "Gestion encadrée par mandat judiciaire, notarial ou familial.",
+                  desc: "Gestion active encadrée par mandat judiciaire, notarial ou familial.",
+                },
+                {
+                  icon: Landmark,
+                  title: "Valoriser",
+                  desc: "Mise en valeur halal des actifs pour préserver et développer leur potentiel.",
                 },
                 {
                   icon: FileBarChart,
@@ -246,10 +234,10 @@ function HomePage() {
                     <item.icon className="size-5 text-primary" />
                   </div>
                   <div>
-                    <div className="font-display text-base font-semibold text-foreground">
+                    <div className="font-display text-sm sm:text-base font-semibold text-foreground">
                       {item.title}
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                       {item.desc}
                     </p>
                   </div>
@@ -320,23 +308,23 @@ function HomePage() {
                   <s.icon className="size-5 text-gold" aria-hidden />
                 </span>
               </div>
-              <div className="font-display text-5xl lg:text-6xl font-semibold text-gold leading-none">
+              <div className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-gold leading-none">
                 {s.value}
                 {s.suffix && (
-                  <span className="text-2xl text-primary-foreground/70 ml-1 align-baseline">
+                  <span className="text-xl sm:text-2xl text-primary-foreground/70 ml-1 align-baseline">
                     {s.suffix}
                   </span>
                 )}
               </div>
-              <div className="mt-3 text-sm font-medium text-primary-foreground/95">{s.label}</div>
-              <div className="mt-1 text-xs text-primary-foreground/70 max-w-[14rem] mx-auto leading-snug">
+              <div className="mt-3 text-xs sm:text-sm font-medium text-primary-foreground/95">{s.label}</div>
+              <div className="mt-1 text-[10px] sm:text-xs text-primary-foreground/70 max-w-[14rem] mx-auto leading-snug">
                 {s.hint}
               </div>
               <div className="mx-auto mt-4 h-px w-16 bg-gold/35" />
             </article>
           ))}
         </div>
-        <p className="text-center text-xs text-primary-foreground/60 max-w-xl mx-auto px-5 mt-8 leading-relaxed">
+        <p className="text-center text-[10px] sm:text-xs text-primary-foreground/60 max-w-xl mx-auto px-5 mt-8 leading-relaxed">
         Des repères prévisionnels pour illustrer notre ambition d’impact et de croissance.
         </p>
       </section>
@@ -360,7 +348,7 @@ function HomePage() {
             <SectionHeading
               eyebrow="Nos services"
               title="Des solutions complètes pour sécuriser et transmettre le patrimoine"
-              description="SOFIGEPAM accompagne les familles, tuteurs, notaires et institutions : gestion fiduciaire, conseil successoral islamique, waqf, zakat et valorisation d’actifs halal."
+              description="SOFIGEPAM accompagne les familles, tuteurs, notaires et institutions : sécurisation, gestion productive halal, waqf, zakat et transmission d’actifs valorisés."
             />
             <div className="mt-8">
               <Button asChild variant="hero" size="xl" className="rounded-full shadow-gold">
@@ -408,12 +396,14 @@ function HomePage() {
               <HeartHandshake className="size-3.5" />
               SOFIGEPAM — Sénégal
             </span>
-            <h2 className="mt-5 font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-primary-foreground text-balance">
+            <h2 className="mt-5 font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-[1.15] sm:leading-tight text-primary-foreground text-balance">
             Tout votre patrimoine, une seule confiance
 
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-primary-foreground/95">
-            AMANAH FIDUCIE assure une gestion globale du patrimoine familial : protection, valorisation, conformité et transparence, quel que soit le type de biens confiés.
+            <p className="mt-4 text-sm sm:text-base md:text-lg text-primary-foreground/95 leading-relaxed">
+            AMANAH FIDUCIE assure une gestion globale du patrimoine familial : protection des
+            actifs, valorisation conforme et transparence de bout en bout, quel que soit le type de
+            biens confiés.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <Button asChild variant="hero" size="xl" className="rounded-full">
@@ -423,7 +413,7 @@ function HomePage() {
                 <Link to="/services">Découvrir nos services</Link>
               </Button>
             </div>
-            <p className="mt-5 text-xs text-primary-foreground/75">
+            <p className="mt-5 text-[10px] sm:text-xs text-primary-foreground/75">
             Découvrir l’accompagnement adapté à votre situation
 
             </p>

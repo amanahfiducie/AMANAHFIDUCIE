@@ -33,13 +33,13 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "AMANAH FIDUCIE SARL — SOFIGEPAM (Société Fiduciaire Islamique de Gestion du Patrimoine des Mineurs). Mandats, AUM, gouvernance et impact selon le business plan.",
+          "AMANAH FIDUCIE SARL — SOFIGEPAM (Société Fiduciaire Islamique de Gestion du Patrimoine des Mineurs). Protection, gestion et valorisation durable des biens successoraux selon le business plan.",
       },
       { name: "author", content: "Amanah Fiducie SARL" },
       { property: "og:title", content: "Amanah Fiducie — Société Fiduciaire Islamique" },
       {
         property: "og:description",
-        content: "Protéger le patrimoine des générations futures.",
+        content: "Protéger, gérer et valoriser le patrimoine des générations futures.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -47,8 +47,9 @@ export const Route = createRootRoute({
       {
         name: "twitter:description",
         content:
-          "Fiducie islamique au Sénégal : protection du patrimoine des mineurs, mandats conformes au droit et à la charia.",
+          "Fiducie islamique au Sénégal : protection, valorisation et transmission du patrimoine des mineurs, avec mandats conformes au droit et à la charia.",
       },
+      { name: "referrer", content: "strict-origin-when-cross-origin" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

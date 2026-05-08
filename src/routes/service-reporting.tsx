@@ -13,7 +13,7 @@ export const Route = createFileRoute("/service-reporting")({
       {
         name: "description",
         content:
-          "Reporting periodique et reddition de comptes pour les familles, notaires et autres parties prenantes.",
+          "Reporting periodique et reddition de comptes pour piloter la protection et la valorisation des biens avec les familles, notaires et autres parties prenantes.",
       },
     ],
   }),
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/service-reporting")({
 const bullets: { icon: LucideIcon; text: string }[] = [
   {
     icon: BarChart3,
-    text: "Suivi periodique des actifs et decisions de gestion.",
+    text: "Suivi periodique des actifs, des revenus et des decisions de valorisation.",
   },
   {
     icon: Users,
@@ -31,7 +31,7 @@ const bullets: { icon: LucideIcon; text: string }[] = [
   },
   {
     icon: ScanSearch,
-    text: "Traçabilite et transparence sur le cycle du mandat.",
+    text: "Traçabilite et transparence sur tout le cycle du mandat fiduciaire.",
   },
 ];
 
@@ -51,7 +51,7 @@ function ServiceReportingPage() {
           <SectionHeading
             eyebrow="Service"
             title="Reporting"
-            description="Une information reguliere, claire et exploitable pour toutes les parties prenantes."
+            description="Une information reguliere, claire et exploitable pour piloter la performance patrimoniale avec toutes les parties prenantes."
             invert
           />
         </div>

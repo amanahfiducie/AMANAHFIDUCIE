@@ -32,7 +32,22 @@ npm install
 npm run dev
 ```
 
+Au premier `npm run dev`, **`predev`** exécute `scripts/env-init.mjs` : copie de `.env.example` → `.env` et `.dev.vars.example` → `.dev.vars` **uniquement si ces fichiers n’existent pas**, puis ajoute **`SKIP_CONTACT_EMAIL=1`** dans le `.dev.vars` tout juste créé pour que le **formulaire contact réponde OK** en local sans Resend. Retirez cette ligne et renseignez **`RESEND_API_KEY`** (ou SMTP) pour de vrais envois.
+
 Le serveur de développement Vite démarre (port **8080** par défaut avec la config Lovable / TanStack). Ouvrez l’URL affichée dans le terminal.
+
+Pour recréer les fichiers d’environnement à la main :
+
+```bash
+npm run env:init
+# ou : cp .env.example .env   &&   cp .dev.vars.example .dev.vars
+```
+
+Puis éditez **`.dev.vars`** (Cloudflare / Worker) ou **`.env`** et collez une **vraie** clé Resend (`re_…`), pas une valeur d’exemple.
+
+**Option recommandée — [Resend](https://resend.com)** : créez une clé `RESEND_API_KEY` (`re_…`), vérifiez un domaine d’envoi ou utilisez `onboarding@resend.dev` pour les tests, et renseignez `RESEND_FROM_EMAIL` + `CONTACT_TO_EMAIL`.
+
+**Option SMTP (ex. Gmail)** : renseignez `SMTP_USER` et `SMTP_PASS` (mot de passe d’application). Si `RESEND_API_KEY` est valide, Resend est utilisé en priorité ; sinon le SMTP est utilisé.
 
 ---
 
@@ -40,6 +55,7 @@ Le serveur de développement Vite démarre (port **8080** par défaut avec la co
 
 | Commande        | Rôle |
 |-----------------|------|
+| `npm run env:init` | Crée `.env` / `.dev.vars` depuis les exemples (si absents) + `SKIP_CONTACT_EMAIL` sur nouveau `.dev.vars` |
 | `npm run dev`   | Serveur de dev avec HMR |
 | `npm run build` | Build production (voir [Déploiement](#déploiement)) |
 | `npm run preview` | Prévisualisation du build client |
@@ -72,6 +88,10 @@ Les alias TypeScript `@/*` pointent vers `src/`.
 │   ├── styles.css        # Design tokens & Tailwind
 │   ├── router.tsx
 │   └── routeTree.gen.ts  # Généré au build — ne pas éditer à la main
+├── scripts/
+│   └── env-init.mjs      # Crée .env / .dev.vars au premier dev (predev)
+├── public/
+│   └── robots.txt         # Directives crawlers (compléter le sitemap en prod)
 ├── vite.config.ts
 ├── wrangler.jsonc        # Déploiement Cloudflare Workers
 ├── vercel.json           # Commandes build Vercel
@@ -110,7 +130,35 @@ Les alias TypeScript `@/*` pointent vers `src/`.
 2. Laisser **Install** : `npm install` et **Build** : `npm run build` (déjà dans `vercel.json`).
 3. Vercel définit **`VERCEL=1`** pendant le build : le `vite.config.ts` désactive le bundle Cloudflare et active **Nitro** (sortie `.vercel/output/`, compatible Serverless / Fluid Compute).
 
-Aucune variable d’environnement obligatoire pour un site vitrine statique + SSR par défaut.
+Variables d’environnement pour le formulaire de contact (au moins une des deux options) :
+
+**Resend (recommandé sur Vercel)** :
+
+```bash
+RESEND_API_KEY=re_xxxxxxxx
+RESEND_FROM_EMAIL=Amanah Fiducie <contact@votredomaine-verifie.resend>
+CONTACT_TO_EMAIL=amanahfiducie@gmail.com
+```
+
+**SMTP (ex. Gmail)** :
+
+```bash
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=amanahfiducie@gmail.com
+SMTP_PASS=<mot-de-passe-application-gmail>
+CONTACT_TO_EMAIL=amanahfiducie@gmail.com
+```
+
+> Si `RESEND_API_KEY` est défini et valide (`re_…`), **Resend est utilisé en priorité**. Sinon, le SMTP est utilisé si `SMTP_USER` / `SMTP_PASS` sont corrects.  
+> Gmail nécessite un **mot de passe d’application** (2FA) pour SMTP. Sans aucune des deux configurations, l’envoi est refusé.  
+> **Ne définissez pas** `SKIP_CONTACT_EMAIL` sur Vercel / production : c’est réservé au développement local (voir `scripts/env-init.mjs`). Sur Vercel, cette variable est **refusée** si elle est présente.
+
+**Sécurité (déjà en place côté dépôt)** :
+
+- `vercel.json` : en-têtes **HSTS**, **X-Frame-Options: DENY**, **X-Content-Type-Options**, **Referrer-Policy**, **Permissions-Policy** sur toutes les routes.
+- Contact : anti-spam, honeypot, rate limiting ; en **production** le serveur ne lit plus `.env` / `.dev.vars` sur le disque (uniquement les variables d’environnement de la plateforme).
+- `public/robots.txt` : indexation ouverte (ajustez une ligne `Sitemap:` avec votre domaine canonique une fois en ligne).
 
 ### Cloudflare Workers (alternatif)
 

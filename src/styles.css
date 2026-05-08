@@ -141,6 +141,8 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    /* Corps : légèrement plus petit sur très petits écrans, stable au-delà de ~lg */
+    font-size: clamp(0.9375rem, 0.88rem + 0.28vw, 1rem);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -275,7 +277,7 @@
     }
     8%,
     17% {
-      flex-grow: 2.5;
+      flex-grow: 3.25;
       filter: brightness(1.2) saturate(1.2);
     }
   }
@@ -283,6 +285,27 @@
   .spotlight-active {
     animation: spotlightActive 6s ease-in-out infinite;
     will-change: flex-grow, filter;
+  }
+
+  @media (max-width: 640px) {
+    @keyframes spotlightActiveMobile {
+      0%,
+      25%,
+      100% {
+        flex-grow: 1;
+        filter: brightness(0.6) saturate(0.85);
+      }
+      8%,
+      17% {
+        /* Mise en valeur plus large sur petit écran (mosaïque CTA index) */
+        flex-grow: 12;
+        filter: brightness(1.2) saturate(1.2);
+      }
+    }
+
+    .spotlight-active {
+      animation-name: spotlightActiveMobile;
+    }
   }
 
   .text-balance {
@@ -302,5 +325,123 @@
   }
   .shadow-card {
     box-shadow: var(--shadow-card);
+  }
+
+  /* Texte partenaires : même durée / easing que le cube (var définie dans PartnerMarquee). */
+  @keyframes partner-text-title-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0.875rem, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes partner-text-subtitle-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0.625rem, 0, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes partner-text-desc-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0.75rem, 0.35rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .partner-text-swap {
+    --partner-text-tx-dur: 900ms;
+    --partner-text-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .partner-text-swap__title {
+    animation: partner-text-title-in var(--partner-text-tx-dur) var(--partner-text-ease) both;
+  }
+
+  .partner-text-swap__subtitle {
+    animation: partner-text-subtitle-in var(--partner-text-tx-dur) var(--partner-text-ease) both;
+    animation-delay: calc(var(--partner-text-tx-dur) * 0.06);
+  }
+
+  .partner-text-swap__desc {
+    animation: partner-text-desc-in var(--partner-text-tx-dur) var(--partner-text-ease) both;
+    animation-delay: calc(var(--partner-text-tx-dur) * 0.12);
+  }
+
+  /* Cube 3D partenaires (scène + perspective) */
+  .partner-cube-scene {
+    width: var(--partner-cube);
+    height: var(--partner-cube);
+    perspective: 980px;
+    --partner-cube: 168px;
+  }
+
+  /* 4 faces : 90° ; translateZ = demi-arête du cube */
+  .partner-cube-scene--4 {
+    --partner-face-tz: calc(var(--partner-cube) / 2);
+  }
+
+  /* 7 faces : angle 360/7 ; translateZ = apothème du prisme */
+  .partner-cube-scene--7 {
+    --partner-face-tz: calc((var(--partner-cube) / 2) / tan(25.714285deg));
+  }
+
+  @media (min-width: 640px) {
+    .partner-cube-scene {
+      --partner-cube: 196px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .partner-cube-scene {
+      --partner-cube: 220px;
+    }
+  }
+
+  .partner-cube-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+  }
+
+  .partner-cube-face {
+    position: absolute;
+    inset: 0;
+    width: var(--partner-cube);
+    height: var(--partner-cube);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .partner-text-swap__title,
+    .partner-text-swap__subtitle,
+    .partner-text-swap__desc {
+      animation: none;
+    }
+  }
+
+  /* Mobile drawer — soft motifs (low contrast, large tiles) */
+  .mobile-nav-drawer-bg {
+    background-color: color-mix(in oklab, var(--primary) 78%, black 12%);
+    background-image:
+      radial-gradient(ellipse 120% 80% at 20% 0%, color-mix(in oklab, white 6%, transparent) 0%, transparent 55%),
+      radial-gradient(ellipse 100% 70% at 100% 100%, color-mix(in oklab, var(--gold) 8%, transparent) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cdefs%3E%3Cpattern id='s' width='96' height='96' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='48' cy='48' r='0.9' fill='%23ffffff' fill-opacity='0.028'/%3E%3Ccircle cx='0' cy='0' r='0.55' fill='%23ffffff' fill-opacity='0.022'/%3E%3Ccircle cx='96' cy='0' r='0.55' fill='%23ffffff' fill-opacity='0.022'/%3E%3Ccircle cx='0' cy='96' r='0.55' fill='%23ffffff' fill-opacity='0.022'/%3E%3Ccircle cx='96' cy='96' r='0.55' fill='%23ffffff' fill-opacity='0.022'/%3E%3Cpath d='M48 18v12M48 66v12M18 48h12M66 48h12' stroke='%23ffffff' stroke-opacity='0.02' stroke-width='0.6' stroke-linecap='round'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23s)'/%3E%3C/svg%3E");
+    background-size: auto, auto, 96px 96px;
   }
 }

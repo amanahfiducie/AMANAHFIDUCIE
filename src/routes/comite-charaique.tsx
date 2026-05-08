@@ -1,9 +1,9 @@
+import governanceMeeting from "@/assets/governance-meeting.jpg";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { SiteLayout } from "@/components/site/SiteLayout";
+import { Button } from "@/components/ui/button";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpenCheck, ClipboardCheck, Scale } from "lucide-react";
-import { SiteLayout } from "@/components/site/SiteLayout";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { Button } from "@/components/ui/button";
-import governanceMeeting from "@/assets/governance-meeting.jpg";
 
 export const Route = createFileRoute("/comite-charaique")({
   head: () => ({
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/comite-charaique")({
       {
         name: "description",
         content:
-          "Comité indépendant : validation des contrats, placements et opérations, audits de conformité charaïque (référence AAOIFI).",
+          "Comité indépendant : validation des contrats, placements et opérations de valorisation, audits de conformité charaïque (référence AAOIFI).",
       },
     ],
   }),
@@ -35,7 +35,7 @@ function ComiteCharaiquePage() {
           <SectionHeading
             eyebrow="Gouvernance"
             title="Comité charaïque"
-            description="Un organe indépendant veille à la conformité des contrats, des placements et des décisions de gestion, avec audits annuels."
+            description="Un organe indépendant veille à la conformité des contrats, des placements et des décisions de valorisation des biens, avec audits annuels."
             invert
           />
         </div>
@@ -49,7 +49,7 @@ function ComiteCharaiquePage() {
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Le comité charaïque examine les opérations sensibles, les choix de placement et les
-              évolutions réglementaires pour garantir une pratique alignée sur les principes
+              stratégies de valorisation pour garantir une pratique alignée sur les principes
               islamiques et les standards de référence (notamment AAOIFI).
             </p>
           </div>

@@ -1,35 +1,35 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import type { LucideIcon } from "lucide-react";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  ArrowRight,
-  BarChart3,
-  BookOpenCheck,
-  Briefcase,
-  Building2,
-  ClipboardList,
-  FileBarChart,
-  FileSignature,
-  FileSearch,
-  FileStack,
-  FileText,
-  HeartHandshake,
-  IdCard,
-  Landmark,
-  Layers,
-  ListChecks,
-  PackageSearch,
-  ScrollText,
-  Shield,
-  TrendingUp,
-  UsersRound,
-  Workflow,
-  Coins,
-} from "lucide-react";
+import waqfHero from "@/assets/waqf-croissance-xof.png";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import waqfHero from "@/assets/waqf-croissance-xof.png";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
+import {
+    ArrowRight,
+    BarChart3,
+    BookOpenCheck,
+    Briefcase,
+    Building2,
+    ClipboardList,
+    Coins,
+    FileBarChart,
+    FileSearch,
+    FileSignature,
+    FileStack,
+    FileText,
+    HeartHandshake,
+    IdCard,
+    Landmark,
+    Layers,
+    ListChecks,
+    PackageSearch,
+    ScrollText,
+    Shield,
+    TrendingUp,
+    UsersRound,
+    Workflow,
+} from "lucide-react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/service-waqf-familial")({
   head: () => ({
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/service-waqf-familial")({
       {
         name: "description",
         content:
-          "Structuration, mise en place et administration de waqf familiaux ou productifs : protection du capital, organisation des revenus, conformité charaïque.",
+          "Structuration, mise en place et administration de waqf familiaux ou productifs : protection du capital, valorisation d'actifs productifs, organisation des revenus et conformité charaïque.",
       },
     ],
   }),
@@ -293,20 +293,13 @@ function ServiceWaqfFamilialProductifPage() {
             {"Waqf familial & waqf productif"}
           </h1>
           <p className="mt-6 text-xl sm:text-2xl lg:text-[1.65rem] font-display font-medium text-white/95 leading-snug text-balance max-w-3xl border-l-[3px] border-gold/70 pl-5 sm:pl-6">
-            Préserver le capital, organiser les revenus, protéger les générations
+            Préserver le capital, valoriser les actifs productifs et protéger les générations
           </p>
-          <div className="mt-8 grid gap-5 lg:gap-6 lg:grid-cols-2 lg:items-start max-w-6xl">
-            <p className="text-base sm:text-lg text-primary-foreground/90 leading-relaxed">
-              Le waqf permet d’affecter un bien ou un capital à une finalité durable : le patrimoine
-              est protégé, les revenus sont organisés et les bénéficiaires sont accompagnés sur le
-              long terme.
-            </p>
-            <p className="text-base text-primary-foreground/85 leading-relaxed rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 px-5 py-4 backdrop-blur-sm">
-              AMANAH FIDUCIE accompagne les familles, entrepreneurs et institutions dans la
-              structuration, la mise en place et l’administration de waqf familiaux ou productifs,
-              dans un cadre conforme à la Charia.
-            </p>
-          </div>
+          <p className="mt-8 max-w-3xl text-base sm:text-lg text-primary-foreground/90 leading-relaxed">
+            Le waqf permet d’affecter un bien ou un capital à une finalité durable : le patrimoine
+            est protégé, les revenus sont organisés et les bénéficiaires sont accompagnés sur le
+            long terme, avec une stratégie de valorisation qui renforce la résilience familiale.
+          </p>
         </div>
       </section>
 

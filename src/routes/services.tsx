@@ -36,7 +36,7 @@ export const Route = createFileRoute("/services")({
       {
         name: "description",
         content:
-          "Tous les services AMANAH FIDUCIE : fiducie, mandats, waqf, conseil successoral islamique, zakat, actifs halal et reporting.",
+          "Tous les services AMANAH FIDUCIE : fiducie, mandats, waqf, conseil successoral islamique, zakat, valorisation d’actifs halal et reporting.",
       },
       { property: "og:title", content: "Nos services — Amanah Fiducie" },
       { property: "og:image", content: justice },
@@ -189,14 +189,14 @@ function ServicesPage() {
               <Briefcase className="size-3.5" />
               Nos services
             </span>
-            <h1 className="font-display text-5xl lg:text-7xl font-semibold leading-[1.05] max-w-3xl">
+            <h1 className="font-display text-[2.125rem] sm:text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.08] sm:leading-[1.05] max-w-3xl">
               Une gamme complète au service du{" "}
               <span className="italic font-normal">patrimoine</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-primary-foreground/90">
               AMANAH FIDUCIE accompagne les familles, tuteurs, notaires et institutions dans
               la gestion fiduciaire, le conseil successoral islamique, la structuration de
-              waqf, l'évaluation de la zakat et la valorisation d'actifs halal.
+              waqf, l'évaluation de la zakat et la valorisation responsable d'actifs halal.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="hero" size="lg" className="rounded-full">
@@ -228,7 +228,7 @@ function ServicesPage() {
           <SectionHeading
             eyebrow="Offre intégrée"
             title="Les services que nous proposons"
-            description="Cinq blocs d'expertise au service du patrimoine familial."
+            description="Cinq blocs d'expertise pour sécuriser, piloter et valoriser durablement le patrimoine familial."
             align="center"
           />
         </div>
@@ -329,17 +329,17 @@ function ServicesPage() {
         />
         <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 ring-1 ring-gold/35 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-primary font-semibold mb-5">
+            <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 ring-1 ring-gold/35 px-3 py-1 text-[10px] sm:text-[11px] uppercase tracking-[0.22em] sm:tracking-[0.28em] text-primary font-semibold mb-5">
               <HeartHandshake className="size-3.5 text-gold" />
               Pour qui ?
             </span>
-            <h2 className="font-display text-4xl lg:text-5xl font-semibold leading-tight text-foreground text-balance">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold leading-[1.12] sm:leading-tight text-foreground text-balance">
               Quatre publics au cœur de notre{" "}
               <span className="text-gold italic font-normal">mission</span>
             </h2>
-            <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-4 sm:mt-5 text-base sm:text-lg text-muted-foreground leading-relaxed">
               Une offre conçue pour les familles, les juridictions, les notaires et les
-              institutions partenaires.
+              institutions partenaires qui recherchent une gestion traçable et une valorisation conforme des biens.
             </p>
           </div>
 
@@ -377,7 +377,7 @@ function ServicesPage() {
           <SectionHeading
             eyebrow="Notre méthode"
             title="Quatre étapes simples"
-            description="Un parcours fiduciaire clair, traçable et conforme à la Charia."
+            description="Un parcours fiduciaire clair, traçable, conforme à la Charia et orienté valorisation des actifs."
             align="center"
             invert
           />
@@ -418,15 +418,15 @@ function ServicesPage() {
       <section className="py-20 lg:py-24 bg-cream">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
-            <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 ring-1 ring-gold/35 px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-primary font-semibold mb-5">
+            <span className="inline-flex items-center gap-2 rounded-full bg-gold/10 ring-1 ring-gold/35 px-3 py-1 text-[10px] sm:text-[11px] uppercase tracking-[0.22em] sm:tracking-[0.28em] text-primary font-semibold mb-5">
               <ShieldCheck className="size-3.5 text-gold" />
               Notre engagement
             </span>
-            <h2 className="font-display text-3xl lg:text-4xl font-semibold leading-tight text-foreground text-balance">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold leading-[1.12] sm:leading-tight text-foreground text-balance">
               Transparence et{" "}
               <span className="text-gold italic font-normal">conformité</span>
             </h2>
-            <p className="mt-5 text-base lg:text-lg text-muted-foreground leading-relaxed">
+            <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed">
               Chaque mission repose sur des comptes séparés, une traçabilité complète,
               une supervision charaïque et un reporting régulier.
             </p>

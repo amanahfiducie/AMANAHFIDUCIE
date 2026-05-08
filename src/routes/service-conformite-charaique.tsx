@@ -13,7 +13,7 @@ export const Route = createFileRoute("/service-conformite-charaique")({
       {
         name: "description",
         content:
-          "Conformite charaique avec supervision, controles et transparence sur les operations fiduciaires.",
+          "Conformite charaique avec supervision, controles et transparence sur les operations fiduciaires et les strategies de valorisation des biens.",
       },
     ],
   }),
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/service-conformite-charaique")({
 const bullets: { icon: LucideIcon; text: string }[] = [
   {
     icon: BookOpenCheck,
-    text: "Verification des choix de gestion et des placements.",
+    text: "Verification des choix de gestion, des placements et des leviers de valorisation licites.",
   },
   {
     icon: ShieldCheck,
@@ -51,7 +51,7 @@ function ServiceConformiteCharaiquePage() {
           <SectionHeading
             eyebrow="Service"
             title="Conformite charaique"
-            description="Supervision des operations et alignement methodologique pour une fiducie responsable."
+            description="Supervision des operations et alignement methodologique pour une fiducie responsable, performante et conforme."
             invert
           />
         </div>

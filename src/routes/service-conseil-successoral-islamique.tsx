@@ -1,33 +1,33 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import type { LucideIcon } from "lucide-react";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  ArrowRight,
-  Baby,
-  BookOpenCheck,
-  Briefcase,
-  Building2,
-  Calculator,
-  ClipboardList,
-  FileBarChart,
-  FileSignature,
-  FileSearch,
-  FileStack,
-  FileText,
-  HeartHandshake,
-  IdCard,
-  Landmark,
-  Layers,
-  ListChecks,
-  Receipt,
-  Scale,
-  UsersRound,
-  Workflow,
-} from "lucide-react";
+import heroOffice from "@/assets/hero-office.jpg";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import heroOffice from "@/assets/hero-office.jpg";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
+import {
+    ArrowRight,
+    Baby,
+    BookOpenCheck,
+    Briefcase,
+    Building2,
+    Calculator,
+    ClipboardList,
+    FileBarChart,
+    FileSearch,
+    FileSignature,
+    FileStack,
+    FileText,
+    HeartHandshake,
+    IdCard,
+    Landmark,
+    Layers,
+    ListChecks,
+    Receipt,
+    Scale,
+    UsersRound,
+    Workflow,
+} from "lucide-react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/service-conseil-successoral-islamique")({
   head: () => ({
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/service-conseil-successoral-islamique")({
       {
         name: "description",
         content:
-          "Compréhension, préparation et structuration d’une succession conforme aux principes islamiques : parts successorales, partage et transmission.",
+          "Compréhension, préparation et structuration d’une succession conforme aux principes islamiques : parts successorales, partage, valorisation des biens et transmission.",
       },
     ],
   }),
@@ -176,7 +176,7 @@ const prerequis: { icon: LucideIcon; title: string; desc: string }[] = [
   {
     icon: BookOpenCheck,
     title: "Accepter une approche neutre et conforme",
-    desc: "L’objectif est de clarifier les droits, prévenir les conflits et respecter les principes islamiques.",
+    desc: "L’objectif est de clarifier les droits, prévenir les conflits et respecter les principes islamiques, tout en préservant la valeur des actifs lorsque le partage immédiat n'est pas possible.",
   },
 ];
 
@@ -279,21 +279,13 @@ function ServiceConseilSuccessoralIslamiquePage() {
             Conseil successoral islamique
           </h1>
           <p className="mt-6 text-xl sm:text-2xl lg:text-[1.65rem] font-display font-medium text-white/95 leading-snug text-balance max-w-3xl border-l-[3px] border-gold/70 pl-5 sm:pl-6">
-            Organiser le partage et la transmission du patrimoine selon la Charia
+            Organiser le partage, la valorisation et la transmission du patrimoine selon la Charia
           </p>
-          <div className="mt-8 grid gap-5 lg:gap-6 lg:grid-cols-2 lg:items-start max-w-6xl">
-            <p className="text-base sm:text-lg text-primary-foreground/90 leading-relaxed">
-              Le service de conseil successoral islamique accompagne les familles dans la
-              compréhension, la préparation et la structuration d’une succession conforme aux
-              principes islamiques.
-            </p>
-            <p className="text-base text-primary-foreground/85 leading-relaxed rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 px-5 py-4 backdrop-blur-sm">
-              AMANAH FIDUCIE intervient pour clarifier les droits des héritiers, calculer les parts
-              successorales, accompagner le partage du patrimoine et proposer, lorsque nécessaire,
-              des solutions de structuration comme le waqf familial ou la gestion fiduciaire
-              temporaire.
-            </p>
-          </div>
+          <p className="mt-8 max-w-3xl text-base sm:text-lg text-primary-foreground/90 leading-relaxed">
+            Le service de conseil successoral islamique accompagne les familles dans la
+            compréhension, la préparation et la structuration d’une succession conforme aux
+            principes islamiques, tout en préservant la valeur des actifs lorsque le partage immédiat n'est pas possible.
+          </p>
         </div>
       </section>
 

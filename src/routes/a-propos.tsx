@@ -1,29 +1,29 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  Quote,
-  ShieldCheck,
-  Landmark,
-  HandHeart,
-  Scale,
-  ClipboardList,
-  Vault,
-  Users2,
-  Gavel,
-  BookOpenCheck,
-  BookMarked,
-  FileBarChart,
-  Lock,
-  ClipboardCheck,
-  FileSpreadsheet,
-  BadgeCheck,
-  ArrowRight,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { SiteLayout } from "@/components/site/SiteLayout";
-import { SectionHeading } from "@/components/site/SectionHeading";
-import { Button } from "@/components/ui/button";
-import seal from "@/assets/logo-seal.png";
 import aboutHero from "@/assets/about-hero.png";
+import seal from "@/assets/logo-seal.png";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { SiteLayout } from "@/components/site/SiteLayout";
+import { Button } from "@/components/ui/button";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
+import {
+    ArrowRight,
+    BadgeCheck,
+    BookMarked,
+    BookOpenCheck,
+    ClipboardCheck,
+    ClipboardList,
+    FileBarChart,
+    FileSpreadsheet,
+    Gavel,
+    HandHeart,
+    Landmark,
+    Lock,
+    Quote,
+    Scale,
+    ShieldCheck,
+    Users2,
+    Vault,
+} from "lucide-react";
 
 export const Route = createFileRoute("/a-propos")({
   head: () => ({
@@ -32,7 +32,7 @@ export const Route = createFileRoute("/a-propos")({
       {
         name: "description",
         content:
-          "AMANAH FIDUCIE SARL — pionnière de la fiducie islamique au Sénégal. Mission, gouvernance et valeurs au service du patrimoine.",
+          "AMANAH FIDUCIE SARL — pionnière de la fiducie islamique au Sénégal. Mission, gouvernance et valeurs au service de la protection et de la valorisation du patrimoine.",
       },
       { property: "og:title", content: "À propos — Amanah Fiducie" },
       { property: "og:image", content: aboutHero },
@@ -118,7 +118,7 @@ function AboutPage() {
             <p className="mt-6 max-w-2xl text-lg text-primary-foreground/90">
               <span className="font-medium">AMANAH FIDUCIE SARL</span> — pionnière de la fiducie
               islamique au Sénégal. Une triple expertise juridique, financière et charaïque pour
-              protéger, valoriser et transmettre le patrimoine.
+              protéger, valoriser et transmettre le patrimoine avec une vision intergénérationnelle.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="hero" size="lg" className="rounded-full">
@@ -175,7 +175,8 @@ function AboutPage() {
             <p className="mt-3 text-base text-muted-foreground leading-relaxed">
               <span className="font-semibold text-foreground">AMANAH FIDUCIE</span> apporte
               une réponse professionnelle, encadrée et conforme à la Charia, pour protéger,
-              gérer et valoriser les biens confiés dans l’intérêt exclusif des bénéficiaires.
+              gérer et valoriser les biens confiés dans l’intérêt exclusif des bénéficiaires, avec
+              des mécanismes de suivi qui favorisent une croissance patrimoniale saine.
             </p>
           </div>
 

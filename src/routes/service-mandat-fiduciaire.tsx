@@ -1,36 +1,36 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import type { LucideIcon } from "lucide-react";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  ArrowRight,
-  BarChart3,
-  Briefcase,
-  Building2,
-  ClipboardList,
-  FileBarChart,
-  FileSearch,
-  FileSignature,
-  FileStack,
-  FileText,
-  Gavel,
-  HeartHandshake,
-  Home,
-  IdCard,
-  KeyRound,
-  Landmark,
-  Layers,
-  PackageSearch,
-  Scale,
-  Shield,
-  TrendingUp,
-  Receipt,
-  Users,
-  Workflow,
-} from "lucide-react";
+import servicesJustice from "@/assets/services-justice.jpg";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import servicesJustice from "@/assets/services-justice.jpg";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
+import {
+    ArrowRight,
+    BarChart3,
+    Briefcase,
+    Building2,
+    ClipboardList,
+    FileBarChart,
+    FileSearch,
+    FileSignature,
+    FileStack,
+    FileText,
+    Gavel,
+    HeartHandshake,
+    Home,
+    IdCard,
+    KeyRound,
+    Landmark,
+    Layers,
+    PackageSearch,
+    Receipt,
+    Scale,
+    Shield,
+    TrendingUp,
+    Users,
+    Workflow,
+} from "lucide-react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/service-mandat-fiduciaire")({
   head: () => ({
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/service-mandat-fiduciaire")({
       {
         name: "description",
         content:
-          "Protéger, administrer et valoriser les biens confiés : mandat fiduciaire pour familles, tuteurs, notaires et institutions.",
+          "Protéger, administrer et valoriser durablement les biens confiés : mandat fiduciaire pour familles, tuteurs, notaires et institutions.",
       },
     ],
   }),
@@ -140,7 +140,7 @@ const etapes: { icon: LucideIcon; title: string; desc: string }[] = [
   {
     icon: Briefcase,
     title: "Gestion et suivi des actifs",
-    desc: "AMANAH FIDUCIE administre les biens confiés, suit les revenus, règle les charges et veille à la conformité des opérations.",
+    desc: "AMANAH FIDUCIE administre les biens confiés, suit les revenus, règle les charges et pilote leur valorisation dans le respect du mandat et de la conformité des opérations.",
   },
   {
     icon: BarChart3,
@@ -258,7 +258,7 @@ function ServiceMandatFiduciairePage() {
           <p className="mt-8 max-w-3xl text-base sm:text-lg text-primary-foreground/90 leading-relaxed">
             AMANAH FIDUCIE accompagne les familles, tuteurs, notaires et institutions dans la
             gestion professionnelle des patrimoines confiés : biens immobiliers, fonciers,
-            liquidités, parts sociales, activités commerciales ou autres actifs familiaux.
+            liquidités, parts sociales, activités commerciales ou autres actifs familiaux, avec une logique de performance prudente et conforme.
           </p>
         </div>
       </section>

@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold tracking-[0.01em] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-55 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:transition-transform group-hover/btn:[&_svg]:translate-x-0.5 active:translate-y-px active:scale-[0.99] overflow-hidden group/btn",
+  "relative inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap rounded-lg text-xs sm:text-sm font-semibold tracking-[0.01em] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-55 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-3.5 sm:[&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:transition-transform group-hover/btn:[&_svg]:translate-x-0.5 active:translate-y-px active:scale-[0.99] overflow-hidden group/btn touch-manipulation select-none",
   {
     variants: {
       variant: {
@@ -27,11 +27,11 @@ const buttonVariants = cva(
           "bg-gold text-gold-foreground shadow-gold font-medium hover:bg-gold/92 hover:shadow-elegant hover:-translate-y-0.5",
       },
       size: {
-        default: "h-10 px-5 py-2.5",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-12 rounded-md px-8 text-base",
-        xl: "h-14 rounded-md px-10 text-base tracking-wide",
-        icon: "h-10 w-10",
+        default: "h-9 px-3.5 py-2 sm:h-10 sm:px-5 sm:py-2.5",
+        sm: "h-7 rounded-md px-2 text-[11px] sm:h-8 sm:px-3 sm:text-xs",
+        lg: "h-9 px-4 text-xs sm:h-12 sm:px-8 sm:text-base",
+        xl: "h-10 px-5 text-xs tracking-wide sm:h-14 sm:px-10 sm:text-base",
+        icon: "size-9 sm:size-10",
       },
     },
     defaultVariants: {

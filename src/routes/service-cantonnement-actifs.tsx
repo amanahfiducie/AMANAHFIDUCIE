@@ -1,33 +1,33 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import type { LucideIcon } from "lucide-react";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  ArrowRight,
-  Baby,
-  Briefcase,
-  Building2,
-  ClipboardList,
-  FileBarChart,
-  FileSignature,
-  FileSearch,
-  FileStack,
-  FileText,
-  Gavel,
-  HeartHandshake,
-  IdCard,
-  KeyRound,
-  Layers,
-  PackageSearch,
-  Receipt,
-  Scale,
-  Shield,
-  TrendingUp,
-  Workflow,
-} from "lucide-react";
+import heritageMineurs from "@/assets/heritage-mineurs.png";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import heritageMineurs from "@/assets/heritage-mineurs.png";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
+import {
+    ArrowRight,
+    Baby,
+    Briefcase,
+    Building2,
+    ClipboardList,
+    FileBarChart,
+    FileSearch,
+    FileSignature,
+    FileStack,
+    FileText,
+    Gavel,
+    HeartHandshake,
+    IdCard,
+    KeyRound,
+    Layers,
+    PackageSearch,
+    Receipt,
+    Scale,
+    Shield,
+    TrendingUp,
+    Workflow,
+} from "lucide-react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export const Route = createFileRoute("/service-cantonnement-actifs")({
   head: () => ({
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/service-cantonnement-actifs")({
       {
         name: "description",
         content:
-          "Cadre professionnel encadré et conforme à la Charia pour sécuriser les biens des mineurs, organiser leur gestion et préserver leur valeur jusqu'à la transmission.",
+          "Cadre professionnel encadré et conforme à la Charia pour sécuriser les biens des mineurs, organiser leur gestion et assurer leur valorisation durable jusqu'à la transmission.",
       },
     ],
   }),
@@ -255,20 +255,13 @@ function ServiceSecurisationHeritagesMineursPage() {
             Sécurisation des héritages des mineurs
           </h1>
           <p className="mt-6 text-xl sm:text-2xl lg:text-[1.65rem] font-display font-medium text-white/95 leading-snug text-balance max-w-3xl border-l-[3px] border-gold/70 pl-5 sm:pl-6">
-            Protéger les biens des enfants héritiers jusqu’à leur transmission
+            Protéger et valoriser les biens des enfants héritiers jusqu’à leur transmission
           </p>
-          <div className="mt-8 grid gap-5 lg:gap-6 lg:grid-cols-2 lg:items-start max-w-6xl">
-            <p className="text-base sm:text-lg text-primary-foreground/90 leading-relaxed">
-              Lorsqu’une succession implique des enfants mineurs, les biens transmis peuvent être
-              exposés à des conflits familiaux, à une mauvaise gestion, à la spoliation ou à la
-              dilution du patrimoine.
-            </p>
-            <p className="text-base text-primary-foreground/85 leading-relaxed rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 px-5 py-4 backdrop-blur-sm">
-              AMANAH FIDUCIE met en place un cadre professionnel, encadré et conforme à la Charia
-              pour sécuriser les biens des mineurs, organiser leur gestion et préserver leur valeur
-              jusqu’à leur restitution ou transmission.
-            </p>
-          </div>
+          <p className="mt-8 max-w-3xl text-base sm:text-lg text-primary-foreground/90 leading-relaxed">
+            Lorsqu’une succession implique des enfants mineurs, les biens transmis peuvent être
+            exposés à des conflits familiaux, à une mauvaise gestion, à la spoliation ou à la
+            dilution du patrimoine. SOFIGEPAM met en place une gestion encadrée qui combine sécurité juridique, discipline opérationnelle et valorisation licite des actifs.
+          </p>
         </div>
       </section>
 

@@ -1,40 +1,39 @@
 import logo from "@/assets/logo-icon.png";
 import { Link } from "@tanstack/react-router";
 import {
-    ArrowUp,
-    BookOpenCheck,
-    ClipboardCheck,
-    Clock,
-    Mail,
-    MapPin,
-    Phone,
-    ScrollText,
+  ArrowUp,
+  BarChart3,
+  ChevronRight,
+  Clock,
+  Landmark,
+  Mail,
+  MapPin,
+  Phone,
+  ShieldCheck,
 } from "lucide-react";
+import { PartnerMarquee } from "./PartnerMarquee";
 
-const navLinks = [
+const mainLinks = [
   { to: "/", label: "Accueil" },
   { to: "/a-propos", label: "À propos" },
-  { to: "/services", label: "Nos services" },
+  { to: "/services", label: "Services" },
   { to: "/impact", label: "Impact" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
-const serviceLinks = [
+const expertiseLinks = [
   { to: "/service-mandat-fiduciaire", label: "Mandat fiduciaire" },
   { to: "/service-cantonnement-actifs", label: "Héritages des mineurs" },
   { to: "/service-conseil-successoral-islamique", label: "Conseil successoral islamique" },
   { to: "/service-waqf-familial", label: "Waqf familial" },
-  { to: "/service-zakat-faraid", label: "Zakat et farāʾiḍ" },
-  { to: "/service-conformite-charaique", label: "Conformité charaïque" },
-  { to: "/comite-charaique", label: "Comité charaïque" },
-  { to: "/service-reporting", label: "Reporting fiduciaire" },
+  { to: "/service-zakat-faraid", label: "Zakat & structuration" },
 ] as const;
 
-const trustChips = [
-  { icon: ScrollText, label: "Tutelle & mandat encadrés" },
-  { icon: BookOpenCheck, label: "Comité charaïque indépendant" },
-  { icon: ClipboardCheck, label: "Audits annuels" },
-];
+const commitments = [
+  { icon: ShieldCheck, label: "Protection des actifs confiés" },
+  { icon: Landmark, label: "Valorisation conforme des biens" },
+  { icon: BarChart3, label: "Reporting transparent et régulier" },
+] as const;
 
 export function Footer() {
   const scrollTop = () =>
@@ -43,61 +42,47 @@ export function Footer() {
 
   return (
     <footer className="relative bg-primary text-primary-foreground">
-      <div aria-hidden="true" className="absolute inset-0 paper-grain opacity-50" />
+      <div aria-hidden="true" className="absolute inset-0 paper-grain opacity-45" />
 
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8 pt-16 pb-10 grid gap-12 lg:grid-cols-12">
-        {/* Brand & description */}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-5 lg:px-8 pt-10 sm:pt-12 pb-10 grid gap-8 sm:gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <Link to="/" className="flex items-center gap-3 mb-5">
-            <img
-              src={logo}
-              alt=""
-              className="h-12 w-12 object-contain"
-              width={48}
-              height={48}
-            />
+            <img src={logo} alt="" className="h-12 w-12 object-contain" width={48} height={48} />
             <div>
-              <div className="font-display text-xl font-semibold">
+              <p className="font-display text-base sm:text-lg md:text-xl font-semibold">
                 AMANAH FIDUCIE SARL
-              </div>
-              <div className="text-[11px] uppercase tracking-[0.22em] text-primary-foreground/70">
-                SOFIGEPAM — Société Fiduciaire Islamique
-              </div>
+              </p>
+              <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.2em] text-primary-foreground/65">
+                Société fiduciaire islamique
+              </p>
             </div>
           </Link>
-
-          <p className="text-primary-foreground/85 max-w-md leading-relaxed">
-            <span className="font-semibold text-gold">AMANAH FIDUCIE SARL</span> — pionnière
-            de la fiducie islamique au Sénégal. Expertise juridique, financière et charaïque
-            au service du patrimoine.
+          <p className="text-xs sm:text-sm text-primary-foreground/82 leading-relaxed max-w-md">
+            Nous accompagnons les familles, tuteurs, notaires et institutions dans la sécurisation
+            et la gestion responsable des patrimoines confiés.
           </p>
-
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {trustChips.map((chip) => (
+          <ul className="mt-5 grid gap-2.5">
+            {commitments.map((item) => (
               <li
-                key={chip.label}
-                className="inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 px-3 py-1 text-[11px] text-primary-foreground/90"
+                key={item.label}
+                className="inline-flex w-fit max-w-full items-center gap-2 rounded-xl sm:rounded-full border border-primary-foreground/20 bg-primary-foreground/8 px-3 py-1.5 text-[10px] sm:text-xs text-primary-foreground/90"
               >
-                <chip.icon className="size-3.5 text-gold" />
-                {chip.label}
+                <item.icon className="size-3.5 text-gold shrink-0" />
+                {item.label}
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Navigation */}
-        <nav aria-label="Navigation pied de page" className="lg:col-span-2">
-          <h4 className="font-display text-sm font-semibold mb-4 text-gold uppercase tracking-wider">
+        <nav aria-label="Navigation principale du pied de page" className="lg:col-span-2">
+          <h4 className="font-display text-xs sm:text-sm font-semibold mb-4 text-gold uppercase tracking-wider">
             Navigation
           </h4>
-          <ul className="space-y-2.5 text-sm text-primary-foreground/80">
-            {navLinks.map((item) => (
+          <ul className="space-y-2.5 text-xs sm:text-sm text-primary-foreground/80">
+            {mainLinks.map((item) => (
               <li key={item.to}>
-                <Link
-                  to={item.to}
-                  className="inline-flex items-center gap-1.5 hover:text-gold transition-colors"
-                >
-                  <span className="size-1 rounded-full bg-gold/0 group-hover:bg-gold transition-colors" />
+                <Link to={item.to} className="inline-flex items-center gap-2 hover:text-gold transition-colors">
+                  <ChevronRight className="size-3.5 text-gold/80" />
                   {item.label}
                 </Link>
               </li>
@@ -105,28 +90,27 @@ export function Footer() {
           </ul>
         </nav>
 
-        {/* Services */}
-        <div className="lg:col-span-3">
-          <h4 className="font-display text-sm font-semibold mb-4 text-gold uppercase tracking-wider">
-            Nos services
+        <nav aria-label="Liens services du pied de page" className="lg:col-span-3">
+          <h4 className="font-display text-xs sm:text-sm font-semibold mb-4 text-gold uppercase tracking-wider">
+            Expertises
           </h4>
-          <ul className="space-y-2.5 text-sm text-primary-foreground/80">
-            {serviceLinks.map((item) => (
+          <ul className="space-y-2.5 text-xs sm:text-sm text-primary-foreground/80">
+            {expertiseLinks.map((item) => (
               <li key={item.to}>
-                <Link to={item.to} className="hover:text-gold transition-colors">
+                <Link to={item.to} className="inline-flex items-center gap-2 hover:text-gold transition-colors">
+                  <ChevronRight className="size-3.5 text-gold/80" />
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
 
-        {/* Contact */}
         <div className="lg:col-span-2">
-          <h4 className="font-display text-sm font-semibold mb-4 text-gold uppercase tracking-wider">
+          <h4 className="font-display text-xs sm:text-sm font-semibold mb-4 text-gold uppercase tracking-wider">
             Contact
           </h4>
-          <ul className="space-y-3 text-sm text-primary-foreground/80">
+          <ul className="space-y-3 text-xs sm:text-sm text-primary-foreground/80">
             <li className="flex gap-3">
               <MapPin className="size-4 mt-0.5 text-gold shrink-0" />
               <span>
@@ -147,10 +131,10 @@ export function Footer() {
             <li className="flex gap-3">
               <Mail className="size-4 mt-0.5 text-gold shrink-0" />
               <a
-                href="mailto:contact@amanahfiducie.sn"
+                href="mailto:amanahfiducie@gmail.com"
                 className="hover:text-gold transition-colors break-all"
               >
-                contact@amanahfiducie.sn
+                amanahfiducie@gmail.com
               </a>
             </li>
             <li className="flex gap-3">
@@ -165,27 +149,27 @@ export function Footer() {
         </div>
       </div>
 
+      <PartnerMarquee />
+
       <div className="relative border-t border-primary-foreground/15">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-primary-foreground/65">
-          <p>
-            © {new Date().getFullYear()} AMANAH FIDUCIE SARL — Tous droits réservés.
+        <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-[10px] sm:text-xs text-primary-foreground/65 text-center md:text-left">
+          <p>© {new Date().getFullYear()} AMANAH FIDUCIE SARL — Tous droits réservés.</p>
+          <p className="font-display italic text-gold/80 text-xs sm:text-sm">
+            « Bâtir pour les générations futures »
           </p>
-          <p className="font-display italic text-gold/80">
-            « Protéger le patrimoine des générations futures »
-          </p>
-          <div className="flex items-center gap-4">
-            <Link to="/contact" className="hover:text-gold transition-colors">
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-2 sm:gap-4">
+            <Link to="/contact" className="px-1 py-1 hover:text-gold transition-colors">
               Mentions légales
             </Link>
-            <span className="opacity-30">·</span>
-            <Link to="/contact" className="hover:text-gold transition-colors">
+            <span className="hidden sm:inline opacity-30">·</span>
+            <Link to="/contact" className="px-1 py-1 hover:text-gold transition-colors">
               Confidentialité
             </Link>
             <button
               type="button"
               onClick={scrollTop}
               aria-label="Revenir en haut"
-              className="ml-2 inline-flex size-8 items-center justify-center rounded-full border border-primary-foreground/25 hover:border-gold hover:text-gold transition-colors"
+              className="inline-flex size-8 items-center justify-center rounded-full border border-primary-foreground/25 hover:border-gold hover:text-gold transition-colors"
             >
               <ArrowUp className="size-4" />
             </button>
