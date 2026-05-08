@@ -289,9 +289,11 @@ export const sendContactEmail = createServerFn({ method: "POST" })
     }
 
     if (!useResend && !useSmtp && !skipEmail) {
-      throw new Error(
-        "Envoi e-mail non configuré. Mettez une vraie clé dans le fichier **.dev.vars** (pas .dev.vars.example) : `cp .dev.vars.example .dev.vars` puis éditez `.dev.vars` avec `RESEND_API_KEY=re_…` (Resend) ou `SMTP_USER` + `SMTP_PASS`. En local sans API : ajoutez `SKIP_CONTACT_EMAIL=1` dans `.dev.vars` (jamais en production).",
-      );
+      const vercelHint =
+        process.env.VERCEL === "1"
+          ? "Sur **Vercel** : Project → Settings → **Environment Variables** → ajoutez `RESEND_API_KEY` (clé `re_…` depuis resend.com), `RESEND_FROM_EMAIL` (expéditeur vérifié) et `CONTACT_TO_EMAIL`. Enregistrez, puis **Redeploy** le dernier déploiement (Deployments → … → Redeploy). Les fichiers `.dev.vars` ne sont pas utilisés sur Vercel."
+          : "En local : fichier **`.dev.vars`** (pas `.dev.vars.example`) à la racine du projet avec `RESEND_API_KEY=re_…` (Resend) ou `SMTP_USER` + `SMTP_PASS`. Commande : `cp .dev.vars.example .dev.vars` puis éditez `.dev.vars`. Sans API : `SKIP_CONTACT_EMAIL=1` dans `.dev.vars` (jamais en production).";
+      throw new Error(`Envoi e-mail non configuré. ${vercelHint}`);
     }
 
     const normalizedSubject =
