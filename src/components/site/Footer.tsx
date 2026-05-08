@@ -44,7 +44,9 @@ export function Footer() {
     <footer className="relative bg-primary text-primary-foreground">
       <div aria-hidden="true" className="absolute inset-0 paper-grain opacity-45" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-5 lg:px-8 pt-10 sm:pt-12 pb-10 grid gap-8 sm:gap-10 lg:grid-cols-12">
+      <PartnerMarquee />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-5 lg:px-8 border-t border-primary-foreground/15 pt-10 sm:pt-12 pb-10 grid gap-8 sm:gap-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <Link to="/" className="flex items-center gap-3 mb-5">
             <img src={logo} alt="" className="h-12 w-12 object-contain" width={48} height={48} />
@@ -148,8 +150,6 @@ export function Footer() {
           </ul>
         </div>
       </div>
-
-      <PartnerMarquee />
 
       <div className="relative border-t border-primary-foreground/15">
         <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-[10px] sm:text-xs text-primary-foreground/65 text-center md:text-left">
