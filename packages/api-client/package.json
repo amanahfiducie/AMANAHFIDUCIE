@@ -1,0 +1,12 @@
+{
+  "name": "@amanah/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Client API pour SOFIGEPAM Connect (généré OpenAPI aux étapes ultérieures).",
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts"
+  }
+}

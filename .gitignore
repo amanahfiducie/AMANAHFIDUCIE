@@ -23,6 +23,12 @@ dist-ssr
 .wrangler/
 .dev.vars
 
+# Docker Compose override (ne pas versionner les secrets / ports locaux)
+infra/.env
+
+# Cursor workspace metadata (nested git repo)
+.workspace/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -34,8 +40,16 @@ dist-ssr
 *.sln
 *.sw?
 
-# Cursor / local workspace artifacts
-.workspace/
+
+# Django / Python (apps/api)
+apps/api/.venv/
+**/__pycache__/
+*.py[cod]
+apps/api/db.sqlite3
+apps/api/media/
+.coverage
+htmlcov/
+
 
 # Vercel build output (local)
 .vercel/

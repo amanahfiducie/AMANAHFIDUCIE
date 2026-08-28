@@ -1,0 +1,320 @@
+.login-root {
+  --sf-green-deep: #0f2418;
+  --sf-green: #1a3d2a;
+  --sf-green-mid: #245a3c;
+  --sf-green-light: #3d7a55;
+  --sf-gold: #c9a227;
+  --sf-gold-soft: #e8d5a3;
+  --sf-cream: #f8f6f0;
+  --sf-cream-dark: #ebe6da;
+  min-height: 100%;
+  background: var(--sf-cream);
+}
+
+.login-pattern {
+  background-color: var(--sf-green-deep);
+}
+
+.login-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.login-hero-media img {
+  object-fit: cover;
+  object-position: 62% 40%;
+  animation: login-hero-pan 18s ease-in-out infinite alternate;
+}
+
+@keyframes login-hero-pan {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.1) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-hero-media img {
+    animation: none;
+    transform: scale(1.05);
+  }
+}
+
+.login-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      105deg,
+      rgb(15 36 24 / 0.92) 0%,
+      rgb(15 36 24 / 0.78) 38%,
+      rgb(15 36 24 / 0.42) 68%,
+      rgb(15 36 24 / 0.28) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(15 36 24 / 0.55) 0%,
+      transparent 35%,
+      transparent 55%,
+      rgb(15 36 24 / 0.72) 100%
+    );
+}
+
+.login-gold-line {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--sf-gold) 20%,
+    var(--sf-gold-soft) 50%,
+    var(--sf-gold) 80%,
+    transparent
+  );
+}
+
+.login-panel {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 70% 50% at 85% 10%, rgb(201 162 39 / 0.08), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 10% 90%, rgb(36 90 60 / 0.07), transparent 50%),
+    linear-gradient(165deg, #fcfbf7 0%, var(--sf-cream) 45%, #f3efe4 100%);
+}
+
+.login-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.35;
+  background-image: linear-gradient(
+      rgb(15 36 24 / 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgb(15 36 24 / 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 20%, transparent 75%);
+  pointer-events: none;
+}
+
+.login-card {
+  position: relative;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgb(235 230 218 / 0.9);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.8) inset,
+    0 4px 6px -1px rgb(15 36 24 / 0.04),
+    0 28px 56px -18px rgb(15 36 24 / 0.18);
+}
+
+.login-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(90deg, transparent, var(--sf-gold), transparent);
+}
+
+.login-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--sf-green) 70%, transparent);
+}
+
+.login-step-dots {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.login-step-dot {
+  width: 1.5rem;
+  height: 0.2rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--sf-green) 18%, transparent);
+  transition:
+    background 0.35s ease,
+    width 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.login-step-dot[data-active="true"] {
+  width: 2rem;
+  background: var(--sf-gold);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--sf-gold) 22%, transparent);
+}
+
+.login-step-panel {
+  position: relative;
+}
+
+.login-step-panel.is-entering[data-direction="forward"] {
+  animation: login-step-in-forward 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.login-step-panel.is-entering[data-direction="back"] {
+  animation: login-step-in-back 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.login-step-panel.is-leaving[data-direction="forward"] {
+  animation: login-step-out-forward 0.28s ease-in both;
+  pointer-events: none;
+}
+
+.login-step-panel.is-leaving[data-direction="back"] {
+  animation: login-step-out-back 0.28s ease-in both;
+  pointer-events: none;
+}
+
+@keyframes login-step-in-forward {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes login-step-in-back {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes login-step-out-forward {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes login-step-out-back {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-step-panel.is-entering,
+  .login-step-panel.is-leaving {
+    animation: none !important;
+  }
+}
+
+.login-input {
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+  background: rgb(255 255 255 / 0.95);
+}
+
+.login-input:hover {
+  border-color: color-mix(in oklab, var(--sf-green-mid) 35%, var(--sf-cream-dark));
+}
+
+.login-input:focus {
+  border-color: var(--sf-green-mid);
+  background: #fff;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--sf-green-mid) 18%, transparent);
+}
+
+.login-otp {
+  letter-spacing: 0.45em;
+  font-variant-numeric: tabular-nums;
+}
+
+.login-btn {
+  background: linear-gradient(
+    135deg,
+    var(--sf-green-deep) 0%,
+    var(--sf-green) 50%,
+    var(--sf-green-mid) 100%
+  );
+  box-shadow:
+    0 1px 2px rgb(15 36 24 / 0.12),
+    0 10px 22px -6px rgb(15 36 24 / 0.4);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.login-btn:hover:not(:disabled) {
+  filter: brightness(1.06);
+  box-shadow:
+    0 2px 4px rgb(15 36 24 / 0.14),
+    0 14px 30px -6px rgb(15 36 24 / 0.45);
+}
+
+.login-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.login-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.login-toggle {
+  color: color-mix(in oklab, var(--sf-green) 55%, transparent);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.login-toggle:hover {
+  color: var(--sf-green-deep);
+  background: color-mix(in oklab, var(--sf-cream) 80%, white);
+}
+
+@keyframes login-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-animate-in {
+  animation: login-fade-up 0.55s ease-out both;
+}
+
+.login-animate-in-delay {
+  animation: login-fade-up 0.55s ease-out 0.1s both;
+}

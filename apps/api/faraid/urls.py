@@ -1,0 +1,67 @@
+from django.urls import path
+
+from faraid.views import (
+    CaseFaraidHeirDetailView,
+    CaseFaraidHeirView,
+    CaseFaraidReviewActionDetailView,
+    CaseFaraidReviewActionListCreateView,
+    CaseFaraidReviewFinalizeView,
+    CaseFaraidReviewHeirDetailView,
+    CaseFaraidReviewHeirListCreateView,
+    CaseFaraidReviewRequestView,
+    CaseFaraidReviewSyncView,
+    CaseFaraidReviewView,
+)
+
+urlpatterns = [
+    path(
+        "cases/<int:case_pk>/faraid-heirs/",
+        CaseFaraidHeirView.as_view(),
+        name="case-faraid-list",
+    ),
+    path(
+        "cases/<int:case_pk>/faraid-heirs/<int:pk>/",
+        CaseFaraidHeirDetailView.as_view(),
+        name="case-faraid-detail",
+    ),
+    path(
+        "cases/<int:case_pk>/faraid-review/",
+        CaseFaraidReviewView.as_view(),
+        name="case-faraid-review",
+    ),
+    path(
+        "cases/<int:case_pk>/faraid-review/request/",
+        CaseFaraidReviewRequestView.as_view(),
+        name="case-faraid-review-request",
+    ),
+    path(
+        "cases/<int:case_pk>/faraid-review/sync/",
+        CaseFaraidReviewSyncView.as_view(),
+        name="case-faraid-review-sync",
+    ),
+    path(
+        "cases/<int:case_pk>/faraid-review/finalize/",
+        CaseFaraidReviewFinalizeView.as_view(),
+        name="case-faraid-review-finalize",
+    ),
+    path(
+        "cases/<int:case_pk>/faraid-review/heirs/",
+        CaseFaraidReviewHeirListCreateView.as_view(),
+        name="case-faraid-review-heirs",
+    ),
+    path(
+        "cases/<int:case_pk>/faraid-review/heirs/<int:pk>/",
+        CaseFaraidReviewHeirDetailView.as_view(),
+        name="case-faraid-review-heir-detail",
+    ),
+    path(
+        "cases/<int:case_pk>/faraid-review/actions/",
+        CaseFaraidReviewActionListCreateView.as_view(),
+        name="case-faraid-review-actions",
+    ),
+    path(
+        "cases/<int:case_pk>/faraid-review/actions/<int:pk>/",
+        CaseFaraidReviewActionDetailView.as_view(),
+        name="case-faraid-review-action-detail",
+    ),
+]
