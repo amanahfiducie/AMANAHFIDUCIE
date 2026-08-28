@@ -74,6 +74,25 @@ cd apps/mobile
 npx expo start
 ```
 
+## Déploiement Render (app interne)
+
+Fichier [`render.yaml`](render.yaml) à la racine : API Django, web Next.js, PostgreSQL.
+
+1. [render.com](https://render.com) → **New** → **Blueprint**
+2. Repo **amanahfiducie/AMANAHFIDUCIE**, branche `main`
+3. Après le 1er déploiement, copier l’URL du service **amanah-web** (ex. `https://amanah-web-xxxx.onrender.com`)
+4. Sur **amanah-api** → **Environment** :
+   - `CORS_ALLOWED_ORIGINS` = URL web (sans slash final)
+   - `CSRF_TRUSTED_ORIGINS` = même URL
+   - SMTP (`EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `DEFAULT_FROM_EMAIL`) pour l’OTP
+5. Redéployer **amanah-api**, puis créer un admin : **Shell** → `python manage.py createsuperuser`
+
+| Service | Rôle |
+|--------|------|
+| `amanah-db` | PostgreSQL |
+| `amanah-api` | API Django (`/api/v1/health/`) |
+| `amanah-web` | Next.js (app interne) |
+
 ## Prochaines étapes
 
 Suivre la roadmap étape par étape dans `BACK_AMANAH_FIDUCIE/CURSOR_PROMPT_SOFIGEPAM_CONNECT_DJANGO.md` (Étape 3 : dossiers fiduciaires, etc.).

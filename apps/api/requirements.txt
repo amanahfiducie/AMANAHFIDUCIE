@@ -1,6 +1,9 @@
 Django>=5.0,<5.3
 python-dotenv>=1.0
 psycopg[binary]>=3.1
+gunicorn>=22.0
+whitenoise>=6.6
+dj-database-url>=2.1
 djangorestframework>=3.15
 djangorestframework-simplejwt>=5.3
 drf-spectacular>=0.27

@@ -26,6 +26,9 @@ dist-ssr
 # Docker Compose override (ne pas versionner les secrets / ports locaux)
 infra/.env
 
+# Django collectstatic (généré au build Render / CI)
+apps/api/staticfiles/
+
 # Cursor workspace metadata (nested git repo)
 .workspace/
 
