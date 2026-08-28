@@ -62,7 +62,7 @@ services:
     region: frankfurt
     repo: https://github.com/amanahfiducie/AMANAHFIDUCIE
     branch: main
-    buildCommand: npm ci && npm run build --workspace apps/web
+    buildCommand: npm ci --include=dev && npm install --os=linux --cpu=x64 --libc=glibc @tailwindcss/oxide-linux-x64-gnu lightningcss-linux-x64-gnu --workspace apps/web && npm run build --workspace apps/web
     startCommand: npm run start --workspace apps/web
     envVars:
       - key: NODE_VERSION
@@ -70,7 +70,4 @@ services:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        fromService:
-          type: web
-          name: amanah-api
-          envVarKey: RENDER_EXTERNAL_URL
+        sync: false
