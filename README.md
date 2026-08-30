@@ -74,24 +74,30 @@ cd apps/mobile
 npx expo start
 ```
 
-## Déploiement Render (app interne)
+## Déploiement production
 
-Fichier [`render.yaml`](render.yaml) à la racine : API Django, web Next.js, PostgreSQL.
+### Backend — Render (API Django + Postgres)
 
-1. [render.com](https://render.com) → **New** → **Blueprint**
-2. Repo **amanahfiducie/AMANAHFIDUCIE**, branche `main`
-3. Après le 1er déploiement, copier l’URL du service **amanah-web** (ex. `https://amanah-web-xxxx.onrender.com`)
-4. Sur **amanah-api** → **Environment** :
-   - `CORS_ALLOWED_ORIGINS` = URL web (sans slash final)
-   - `CSRF_TRUSTED_ORIGINS` = même URL
-   - SMTP (`EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `DEFAULT_FROM_EMAIL`) pour l’OTP
-5. Redéployer **amanah-api**, puis créer un admin : **Shell** → `python manage.py createsuperuser`
+Services : `amanah-api` + `amanah-db`.
 
-| Service | Rôle |
-|--------|------|
-| `amanah-db` | PostgreSQL |
-| `amanah-api` | API Django (`/api/v1/health/`) |
-| `amanah-web` | Next.js (app interne) |
+- API : https://amanah-api-9prx.onrender.com  
+- Santé : https://amanah-api-9prx.onrender.com/api/v1/health/
+
+Après le déploiement du front Vercel, sur **amanah-api** → Environment :
+
+- `CORS_ALLOWED_ORIGINS` = URL Vercel (sans slash final)
+- `CSRF_TRUSTED_ORIGINS` = même URL
+- SMTP pour l’OTP (`EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `DEFAULT_FROM_EMAIL`)
+
+### Frontend — Vercel (Next.js uniquement)
+
+Fichier [`vercel.json`](vercel.json) à la racine.
+
+1. [vercel.com/new](https://vercel.com/new) → importer **amanahfiducie/AMANAHFIDUCIE**
+2. Framework : Next.js (détecté)
+3. Variable d’environnement :
+   - `NEXT_PUBLIC_API_URL` = `https://amanah-api-9prx.onrender.com`
+4. Deploy
 
 ## Prochaines étapes
 

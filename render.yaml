@@ -1,5 +1,6 @@
-# Blueprint Render — SOFIGEPAM Connect (app interne)
-# Déploiement : https://dashboard.render.com/blueprint/new?repo=https://github.com/amanahfiducie/AMANAHFIDUCIE
+# Blueprint Render — SOFIGEPAM Connect API (backend only)
+# Front Next.js → Vercel (voir vercel.json)
+# Déploiement API : https://dashboard.render.com/blueprint/new?repo=https://github.com/amanahfiducie/AMANAHFIDUCIE
 
 databases:
   - name: amanah-db
@@ -39,7 +40,7 @@ services:
         fromDatabase:
           name: amanah-db
           property: connectionString
-      # À renseigner après le 1er déploiement web (URL https://…onrender.com)
+      # URL Vercel du front (ex. https://amanah-fiducie.vercel.app) — sans slash final
       - key: CORS_ALLOWED_ORIGINS
         sync: false
       - key: CSRF_TRUSTED_ORIGINS
@@ -53,21 +54,4 @@ services:
       - key: EMAIL_HOST_PASSWORD
         sync: false
       - key: DEFAULT_FROM_EMAIL
-        sync: false
-
-  - type: web
-    name: amanah-web
-    runtime: node
-    plan: free
-    region: frankfurt
-    repo: https://github.com/amanahfiducie/AMANAHFIDUCIE
-    branch: main
-    buildCommand: npm ci --include=dev && npm install --os=linux --cpu=x64 --libc=glibc @tailwindcss/oxide-linux-x64-gnu lightningcss-linux-x64-gnu --workspace apps/web && npm run build --workspace apps/web
-    startCommand: npm run start --workspace apps/web
-    envVars:
-      - key: NODE_VERSION
-        value: "20.11.0"
-      - key: NODE_ENV
-        value: production
-      - key: NEXT_PUBLIC_API_URL
         sync: false
