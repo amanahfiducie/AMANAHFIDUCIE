@@ -424,14 +424,6 @@ export function CaseOnboardingWizard({ initialCaseId, resumeStep, readOnly = fal
         },
       );
       await loadCase(caseId);
-      setInviteTarget({
-        caseId,
-        profileType: "trusted_person",
-        profileId: person.id,
-        displayName: `${person.first_name} ${person.last_name}`.trim(),
-        defaultEmail: person.email,
-        defaultPhone: person.phone,
-      });
       setTrustedPersonForm({
         first_name: "",
         last_name: "",
