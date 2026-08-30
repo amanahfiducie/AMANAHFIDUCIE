@@ -27,6 +27,13 @@ export const metadata: Metadata = {
   title: "SOFIGEPAM Connect",
   description:
     "Interface web AMANAH FIDUCIE — gestion fiduciaire et conformité charaïque.",
+  icons: {
+    icon: [
+      { url: "/brand/logo-icon-official.png", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [{ url: "/brand/logo-icon-official.png", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({

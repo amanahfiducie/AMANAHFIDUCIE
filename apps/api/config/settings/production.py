@@ -53,5 +53,9 @@ if csrf_origins_raw:
 else:
     CSRF_TRUSTED_ORIGINS = list(CORS_ALLOWED_ORIGINS)  # noqa: F405
 
-LOGIN_OTP_METHOD = "email"  # noqa: F405
-LOGIN_OTP_EXPOSE_DEV_CODE = False  # noqa: F405
+LOGIN_OTP_METHOD = os.environ.get("LOGIN_OTP_METHOD", "email").strip() or "email"
+LOGIN_OTP_EXPOSE_DEV_CODE = os.environ.get("LOGIN_OTP_EXPOSE_DEV_CODE", "0").lower() in (
+    "1",
+    "true",
+    "yes",
+)

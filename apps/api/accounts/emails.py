@@ -999,9 +999,14 @@ def send_login_otp_email(
             "Vérifiez .dev.vars à la racine ou apps/api/.env puis redémarrez l'API."
         )
 
-    # Secours Resend — désactivé par défaut ; pas de secours si Gmail SMTP est prêt
+    # Secours Resend — actif si demandé, ou si SMTP a échoué (ex. Render free bloque le port 25/465/587)
     use_resend = pick_env("OTP_USE_RESEND") or "0"
-    if smtp_credentials_valid():
+    smtp_failed = any(
+        "SMTP" in e or "injoignable" in e or "unreachable" in e.lower()
+        for e in errors
+    )
+    if smtp_credentials_valid() and not smtp_failed and not skip_smtp:
+        # SMTP prêt et pas d'échec → pas de secours Resend (évite double envoi en mode test)
         use_resend = "0"
     if use_resend != "0" and method in ("auto", "email"):
         try:
@@ -1025,6 +1030,22 @@ def send_login_otp_email(
             f"{to_email}\n{code}\n", encoding="utf-8"
         )
         return OtpEmailResult(dev_code=code, dev_notice=errors[0] if errors else None)
+
+    # Secours bootstrap : afficher le code à l'écran si explicitement autorisé
+    # (utile sur Render free où SMTP sortant est bloqué).
+    if _expose_dev_code():
+        logger.warning(
+            "OTP affiché à l'écran (LOGIN_OTP_EXPOSE_DEV_CODE=1) — e-mail indisponible: %s",
+            "; ".join(errors) or "aucun canal",
+        )
+        return OtpEmailResult(
+            dev_code=code,
+            dev_notice=(
+                errors[0]
+                if errors
+                else "Code affiché à l'écran (envoi e-mail indisponible)."
+            ),
+        )
 
     raise LoginOtpEmailError(_user_facing_send_error(errors))
 

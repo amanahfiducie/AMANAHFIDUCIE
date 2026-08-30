@@ -11,6 +11,9 @@
     "dev:web": "npm run dev --workspace apps/web",
     "dev:api": "cd apps/api && . .venv/bin/activate && python manage.py runserver 0.0.0.0:8000",
     "infra:up": "docker compose -f infra/docker-compose.yml up -d",
-    "infra:down": "docker compose -f infra/docker-compose.yml down"
+    "infra:down": "docker compose -f infra/docker-compose.yml down",
+    "stack:up": "docker compose up -d --build",
+    "stack:down": "docker compose down",
+    "stack:logs": "docker compose logs -f api web"
   }
 }

@@ -63,7 +63,11 @@ def _sync_smtp_tls_ssl() -> None:
 
 
 def load_project_env() -> None:
-    """Charge .env puis .dev.vars — les secrets (.dev.vars) passent en dernier."""
+    """Charge .env puis .dev.vars (local).
+
+    Ne remplace jamais les variables déjà présentes (Render / Docker) :
+    `override=False` évite qu'un fichier local vide ou partiel écrase SMTP_*.
+    """
     for path in (
         REPO_ROOT / ".env",
         API_DIR / ".env",
@@ -71,7 +75,7 @@ def load_project_env() -> None:
         API_DIR / ".dev.vars",
     ):
         if path.is_file():
-            load_dotenv(path, override=True)
+            load_dotenv(path, override=False)
     _map_smtp_aliases()
 
 

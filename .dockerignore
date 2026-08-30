@@ -1,0 +1,26 @@
+# Contexte build monorepo (web Dockerfile)
+.git
+.github
+**/node_modules
+**/.next
+**/.venv
+**/__pycache__
+**/staticfiles
+**/media
+**/.env
+**/.env.*
+!**/.env.example
+**/.dev.vars
+apps/api
+infra
+docs
+BACK_AMANAH_FIDUCIE
+WEB_PUBLIC_AMANAH_FIDUCIE*
+*.pdf
+.workspace
+.cursor
+agent-transcripts
+apps/mobile/android
+apps/mobile/ios
+apps/mobile/.expo
+

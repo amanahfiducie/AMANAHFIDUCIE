@@ -76,28 +76,36 @@ npx expo start
 
 ## Déploiement production
 
-### Backend — Render (API Django + Postgres)
+### Backend — Render (API Django Docker + Postgres)
 
-Services : `amanah-api` + `amanah-db`.
+Image : [`apps/api/Dockerfile`](apps/api/Dockerfile) via [`render.yaml`](render.yaml).
 
 - API : https://amanah-api-9prx.onrender.com  
 - Santé : https://amanah-api-9prx.onrender.com/api/v1/health/
 
-Après le déploiement du front Vercel, sur **amanah-api** → Environment :
+Sur **amanah-api** → Environment :
 
-- `CORS_ALLOWED_ORIGINS` = URL Vercel (sans slash final)
-- `CSRF_TRUSTED_ORIGINS` = même URL
-- SMTP pour l’OTP (`EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD`, `DEFAULT_FROM_EMAIL`)
+- `CORS_ALLOWED_ORIGINS` / `CSRF_TRUSTED_ORIGINS` = URL Vercel (sans slash final)
+- `LOGIN_OTP_EXPOSE_DEV_CODE=1` tant que l’e-mail transactionnel n’est pas opérationnel (Render free bloque souvent le SMTP sortant)
 
-### Frontend — Vercel (Next.js uniquement)
+### Frontend — Vercel (Next.js)
 
-Fichier [`vercel.json`](vercel.json) à la racine.
+Fichier [`vercel.json`](vercel.json). Conteneur local/prod : [`apps/web/Dockerfile`](apps/web/Dockerfile).
 
 1. [vercel.com/new](https://vercel.com/new) → importer **amanahfiducie/AMANAHFIDUCIE**
-2. Framework : Next.js (détecté)
-3. Variable d’environnement :
-   - `NEXT_PUBLIC_API_URL` = `https://amanah-api-9prx.onrender.com`
-4. Deploy
+2. Variable : `NEXT_PUBLIC_API_URL` = `https://amanah-api-9prx.onrender.com`
+3. Deploy
+
+### Stack Docker locale (API + Web + Postgres)
+
+```bash
+docker compose up -d --build
+```
+
+- Web : http://127.0.0.1:3000  
+- API : http://127.0.0.1:8000/api/v1/health/
+
+Infra seule (Postgres/Redis/MinIO) : `npm run infra:up`
 
 ## Prochaines étapes
 

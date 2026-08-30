@@ -1,6 +1,6 @@
-# Blueprint Render — SOFIGEPAM Connect API (backend only)
-# Front Next.js → Vercel (voir vercel.json)
-# Déploiement API : https://dashboard.render.com/blueprint/new?repo=https://github.com/amanahfiducie/AMANAHFIDUCIE
+# Blueprint Render — API Django (Docker) + Postgres
+# Front Next.js → Vercel (voir vercel.json / apps/web/Dockerfile pour conteneur local)
+# https://dashboard.render.com/blueprint/new?repo=https://github.com/amanahfiducie/AMANAHFIDUCIE
 
 databases:
   - name: amanah-db
@@ -12,18 +12,15 @@ databases:
 services:
   - type: web
     name: amanah-api
-    runtime: python
+    runtime: docker
     plan: free
     region: frankfurt
     repo: https://github.com/amanahfiducie/AMANAHFIDUCIE
     branch: main
-    rootDir: apps/api
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate --noinput
-    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: ./apps/api
     healthCheckPath: /api/v1/health/
     envVars:
-      - key: PYTHON_VERSION
-        value: "3.12.0"
       - key: DJANGO_SETTINGS_MODULE
         value: config.settings.production
       - key: SECRET_KEY
@@ -34,24 +31,38 @@ services:
         value: "0"
       - key: USE_S3
         value: "0"
+      - key: DATABASE_SSL
+        value: "1"
+      - key: ALLOWED_HOSTS
+        value: "*"
       - key: LOGIN_OTP_METHOD
         value: email
+      # Render free bloque souvent le SMTP sortant — code à l'écran en attendant un provider HTTPS
+      - key: LOGIN_OTP_EXPOSE_DEV_CODE
+        value: "1"
+      - key: OTP_USE_RESEND
+        value: "0"
       - key: DATABASE_URL
         fromDatabase:
           name: amanah-db
           property: connectionString
-      # URL Vercel du front (ex. https://amanah-fiducie.vercel.app) — sans slash final
       - key: CORS_ALLOWED_ORIGINS
         sync: false
       - key: CSRF_TRUSTED_ORIGINS
         sync: false
-      - key: EMAIL_HOST
+      - key: SMTP_HOST
         sync: false
-      - key: EMAIL_PORT
+      - key: SMTP_PORT
         sync: false
-      - key: EMAIL_HOST_USER
+      - key: SMTP_USER
         sync: false
-      - key: EMAIL_HOST_PASSWORD
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM_EMAIL
         sync: false
       - key: DEFAULT_FROM_EMAIL
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
         sync: false
