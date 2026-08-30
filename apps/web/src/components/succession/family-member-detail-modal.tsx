@@ -154,7 +154,7 @@ export function FamilyMemberDetailModal({
   }
 
   async function confirmPasswordAction(password: string) {
-    if (!member || !pendingAction) return;
+    if (!member || !pendingAction || !form) return;
     setPasswordBusy(true);
     setPasswordError(null);
     try {
@@ -162,7 +162,9 @@ export function FamilyMemberDetailModal({
       if (pendingAction === "save") {
         await apiRequest(`/beneficiaries/${member.id}/`, {
           method: "PATCH",
-          body: formToPatchBody(form, donorId, allMembers, member.id),
+          body: JSON.stringify(
+            formToPatchBody(form, donorId, allMembers, member.id),
+          ),
         });
       } else {
         await apiRequest(`/beneficiaries/${member.id}/`, { method: "DELETE" });

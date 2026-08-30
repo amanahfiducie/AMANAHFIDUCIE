@@ -204,7 +204,7 @@ export function ServiceDetailPage({ caseType }: { caseType: string }) {
     const payload: ServiceBillingRulePayload = {
       ...form,
       label: form.label.trim(),
-      description: form.description.trim(),
+      description: (form.description ?? "").trim(),
       rate_percent: emptyToNull(form.rate_percent),
       rate_min_percent: emptyToNull(form.rate_min_percent),
       rate_max_percent: emptyToNull(form.rate_max_percent),

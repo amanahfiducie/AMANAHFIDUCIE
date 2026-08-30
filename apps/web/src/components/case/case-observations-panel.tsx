@@ -194,7 +194,7 @@ export function CaseObservationsPanel({ kind, caseId: caseIdProp, compact = fals
             <div className="p-4">
               <EmptyState
                 title={isSubmission ? "Aucune observation" : "Aucune remarque"}
-                hint={
+                description={
                   isSubmission
                     ? "Les observations déposées apparaîtront ici."
                     : "Ajoutez une remarque via le formulaire à droite."

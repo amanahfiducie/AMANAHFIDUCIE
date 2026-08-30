@@ -1,0 +1,15 @@
+node_modules
+apps/*/node_modules
+apps/api/.venv
+apps/api/staticfiles
+apps/api/media
+apps/api
+apps/mobile
+.workspace
+WEB_PUBLIC_AMANAH_FIDUCIE 
+BACK_AMANAH_FIDUCIE
+infra
+docs
+*.pdf
+.git
+render.yaml
