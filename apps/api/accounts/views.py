@@ -507,11 +507,14 @@ class UserViewSet(viewsets.ModelViewSet):
                 phone=(profile.phone if profile else "") or "",
             )
             email_sent = True
-        except CaseInviteEmailError as exc:
+        except (CaseInviteEmailError, LoginOtpEmailError) as exc:
             email_error = str(exc)
             logger.warning(
                 "E-mail reset password non envoyé pour %s: %s", user_obj.pk, exc
             )
+        except Exception:
+            email_error = "Envoi de l'e-mail de réinitialisation impossible."
+            logger.exception("E-mail reset password pour utilisateur %s", user_obj.pk)
 
         return Response(
             {

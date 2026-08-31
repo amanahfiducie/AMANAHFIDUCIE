@@ -1123,16 +1123,45 @@ def _send_simple_email(
     text_body: str,
     html_body: str,
 ) -> None:
+    """Invitation / bienvenue / reset — SMTP local, sinon webhook Vercel (Render free)."""
     load_project_env()
-    if not smtp_credentials_valid():
-        raise CaseInviteEmailError(
-            "SMTP non configuré — impossible d'envoyer l'e-mail d'invitation."
-        )
-    _send_via_smtp(
-        to_email=to_email,
-        subject=subject,
-        text_body=text_body,
-        html_body=html_body,
+    webhook_url = pick_env("OTP_EMAIL_WEBHOOK_URL")
+    webhook_secret = pick_env("OTP_EMAIL_WEBHOOK_SECRET")
+    webhook_configured = bool(webhook_url and webhook_secret)
+    skip_smtp = pick_env("OTP_SKIP_SMTP") == "1" and webhook_configured
+
+    last_error: Exception | None = None
+    if smtp_credentials_valid() and not skip_smtp:
+        try:
+            _send_via_smtp(
+                to_email=to_email,
+                subject=subject,
+                text_body=text_body,
+                html_body=html_body,
+            )
+            return
+        except LoginOtpEmailError as exc:
+            last_error = exc
+            logger.warning("SMTP e-mail métier échoué (%s) — secours webhook si dispo", exc)
+
+    if webhook_configured:
+        try:
+            _send_via_otp_webhook(
+                webhook_url=webhook_url,
+                webhook_secret=webhook_secret,
+                to_email=to_email,
+                subject=subject,
+                text_body=text_body,
+                html_body=html_body,
+            )
+            return
+        except LoginOtpEmailError as exc:
+            raise CaseInviteEmailError(str(exc)) from exc
+
+    if last_error is not None:
+        raise CaseInviteEmailError(str(last_error)) from last_error
+    raise CaseInviteEmailError(
+        "SMTP non configuré — impossible d'envoyer l'e-mail d'invitation."
     )
 
 
