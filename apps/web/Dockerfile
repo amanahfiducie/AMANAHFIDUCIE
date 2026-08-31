@@ -1,17 +1,27 @@
 # SOFIGEPAM Connect — Next.js (contexte = racine monorepo)
 # docker build -f apps/web/Dockerfile -t amanah-web .
+# Prod tip : docker build --platform=linux/amd64 ...
 
 FROM node:22-bookworm-slim AS deps
 WORKDIR /app
+ENV npm_config_fetch_retries=5 \
+    npm_config_fetch_retry_mintimeout=20000 \
+    npm_config_fetch_retry_maxtimeout=120000
+
 COPY package.json package-lock.json ./
 COPY apps/web/package.json ./apps/web/
 COPY apps/mobile/package.json ./apps/mobile/
 COPY packages/api-client/package.json ./packages/api-client/
 COPY packages/shared-types/package.json ./packages/shared-types/
-RUN npm ci --workspace=apps/web --include-workspace-root \
-    && npm install --os=linux --cpu=x64 --libc=glibc \
-         lightningcss-linux-x64-gnu @tailwindcss/oxide-linux-x64-gnu \
-         --workspace=apps/web
+
+# Install workspace deps; native CSS engines installed best-effort for the host arch
+RUN npm install --workspace=apps/web --include-workspace-root --no-audit --no-fund \
+    && ARCH="$(uname -m)" \
+    && case "$ARCH" in \
+         aarch64|arm64) CSS_PKGS="lightningcss-linux-arm64-gnu @tailwindcss/oxide-linux-arm64-gnu" ;; \
+         *) CSS_PKGS="lightningcss-linux-x64-gnu @tailwindcss/oxide-linux-x64-gnu" ;; \
+       esac \
+    && npm install --workspace=apps/web --no-audit --no-fund $CSS_PKGS || true
 
 FROM node:22-bookworm-slim AS builder
 WORKDIR /app
