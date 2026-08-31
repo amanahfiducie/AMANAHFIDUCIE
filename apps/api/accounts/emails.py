@@ -1012,11 +1012,14 @@ def send_login_otp_email(
     delivered_to: str | None = None
 
     skip_smtp = pick_env("OTP_SKIP_SMTP") == "1"
-    if smtp_credentials_valid() and skip_smtp:
+    webhook_configured = bool(pick_env("OTP_EMAIL_WEBHOOK_URL") and pick_env("OTP_EMAIL_WEBHOOK_SECRET"))
+    if smtp_credentials_valid() and skip_smtp and not webhook_configured:
         logger.info(
             "OTP_SKIP_SMTP ignoré : Gmail/SMTP configuré — envoi du code à l'e-mail du compte."
         )
         skip_smtp = False
+    elif skip_smtp and webhook_configured:
+        logger.info("OTP_SKIP_SMTP=1 + webhook — SMTP local ignoré, envoi via HTTPS.")
     if smtp_credentials_valid() and not skip_smtp:
         try:
             _send_via_smtp(
