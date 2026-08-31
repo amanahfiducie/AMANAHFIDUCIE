@@ -658,13 +658,15 @@ def _deliver_smtp(
     msg: MIMEMultipart,
     to_email: str,
 ) -> None:
+    # Timeout court : sur Render free le SMTP est souvent bloqué (Errno 101)
+    timeout = 8
     if port == 465:
         context = ssl.create_default_context()
-        with smtplib.SMTP_SSL(host, port, context=context, timeout=30) as server:
+        with smtplib.SMTP_SSL(host, port, context=context, timeout=timeout) as server:
             server.login(user, password)
             server.sendmail(user, [to_email], msg.as_string())
     else:
-        with smtplib.SMTP(host, port, timeout=30) as server:
+        with smtplib.SMTP(host, port, timeout=timeout) as server:
             if pick_env("EMAIL_USE_TLS") != "0":
                 server.starttls(context=ssl.create_default_context())
             server.login(user, password)
@@ -786,6 +788,46 @@ def _send_via_smtp(
         ) from last_error
     detail = f"{last_error}" if last_error else "échec inconnu"
     raise LoginOtpEmailError(f"SMTP ({host_label}) : {detail}") from last_error
+
+
+def _send_via_otp_webhook(
+    *,
+    webhook_url: str,
+    webhook_secret: str,
+    to_email: str,
+    subject: str,
+    text_body: str,
+    html_body: str,
+) -> None:
+    """Envoie l'OTP via un endpoint HTTPS (Vercel) qui relaie vers Gmail SMTP."""
+    payload = {
+        "to_email": to_email,
+        "subject": subject,
+        "text_body": text_body,
+        "html_body": html_body,
+    }
+    req = urllib.request.Request(
+        webhook_url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Content-Type": "application/json",
+            "X-OTP-Webhook-Secret": webhook_secret,
+            "User-Agent": "SOFIGEPAM-Connect/1.0 (AMANAH FIDUCIE)",
+        },
+        method="POST",
+    )
+    ctx = ssl.create_default_context()
+    try:
+        with urllib.request.urlopen(req, timeout=30, context=ctx) as res:
+            body = res.read().decode("utf-8", errors="replace")
+            if res.status >= 400:
+                raise LoginOtpEmailError(f"Webhook OTP ({res.status}) : {body[:200]}")
+    except urllib.error.HTTPError as exc:
+        body = exc.read().decode("utf-8", errors="replace")
+        raise LoginOtpEmailError(f"Webhook OTP ({exc.code}) : {body[:200]}") from exc
+    except urllib.error.URLError as exc:
+        raise LoginOtpEmailError(f"Webhook OTP injoignable : {exc.reason}") from exc
+    logger.info("OTP envoyé à %s via webhook HTTPS", to_email)
 
 
 def _resend_request(
@@ -986,18 +1028,36 @@ def send_login_otp_email(
             return OtpEmailResult(delivered_to=to_email)
         except LoginOtpEmailError as exc:
             if str(exc) == "smtp_dns_failed":
-                logger.warning("SMTP DNS — bascule Resend pour %s", to_email)
-                errors.append("SMTP injoignable (DNS/réseau), secours Resend…")
+                logger.warning("SMTP DNS — bascule webhook/Resend pour %s", to_email)
+                errors.append("SMTP injoignable (DNS/réseau), secours…")
             else:
                 errors.append(str(exc))
                 logger.warning("SMTP OTP : %s", exc)
     elif skip_smtp:
-        logger.info("OTP_SKIP_SMTP=1 — envoi via Resend uniquement")
+        logger.info("OTP_SKIP_SMTP=1 — envoi via webhook/Resend uniquement")
     else:
         errors.append(
             "SMTP non configuré (SMTP_HOST, SMTP_USER, SMTP_PASS manquants). "
             "Vérifiez .dev.vars à la racine ou apps/api/.env puis redémarrez l'API."
         )
+
+    # Webhook HTTPS (ex. route Vercel) — contourne le blocage SMTP sortant Render free
+    webhook_url = pick_env("OTP_EMAIL_WEBHOOK_URL")
+    webhook_secret = pick_env("OTP_EMAIL_WEBHOOK_SECRET")
+    if webhook_url and webhook_secret:
+        try:
+            _send_via_otp_webhook(
+                webhook_url=webhook_url,
+                webhook_secret=webhook_secret,
+                to_email=to_email,
+                subject=subject,
+                text_body=text_body,
+                html_body=html_body,
+            )
+            return OtpEmailResult(delivered_to=to_email)
+        except LoginOtpEmailError as exc:
+            errors.append(str(exc))
+            logger.warning("OTP webhook : %s", exc)
 
     # Secours Resend — actif si demandé, ou si SMTP a échoué (ex. Render free bloque le port 25/465/587)
     use_resend = pick_env("OTP_USE_RESEND") or "0"
@@ -1005,8 +1065,7 @@ def send_login_otp_email(
         "SMTP" in e or "injoignable" in e or "unreachable" in e.lower()
         for e in errors
     )
-    if smtp_credentials_valid() and not smtp_failed and not skip_smtp:
-        # SMTP prêt et pas d'échec → pas de secours Resend (évite double envoi en mode test)
+    if smtp_credentials_valid() and not smtp_failed and not skip_smtp and not webhook_url:
         use_resend = "0"
     if use_resend != "0" and method in ("auto", "email"):
         try:
@@ -1032,7 +1091,6 @@ def send_login_otp_email(
         return OtpEmailResult(dev_code=code, dev_notice=errors[0] if errors else None)
 
     # Secours bootstrap : afficher le code à l'écran si explicitement autorisé
-    # (utile sur Render free où SMTP sortant est bloqué).
     if _expose_dev_code():
         logger.warning(
             "OTP affiché à l'écran (LOGIN_OTP_EXPOSE_DEV_CODE=1) — e-mail indisponible: %s",
@@ -1048,6 +1106,7 @@ def send_login_otp_email(
         )
 
     raise LoginOtpEmailError(_user_facing_send_error(errors))
+
 
 
 class CaseInviteEmailError(Exception):
